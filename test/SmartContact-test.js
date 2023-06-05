@@ -1,8 +1,8 @@
 const { expect } = require("chai");
 
-describe("NFTMarket", function () {
+describe("NFTmarket", function () {
     it("Should create and execute market sales", async function () {
-        const Market = await ethers.getContractFactory("NFTMarket")
+        const Market = await ethers.getContractFactory("NFTmarket")
         const market = await Market.deploy()
         await market.deployed()
         const marketAddress = market.address

@@ -1,8 +1,8 @@
-require("@nomicfoundation/hardhat-waffle");
+require("@nomiclabs/hardhat-waffle");
 
 
 module.exports = {
-  defaultNetwork: "hardhat",
+ /* defaultNetwork: "hardhat",
   networks: {
     hardhat: {
       chainId: 1337
@@ -21,7 +21,7 @@ module.exports = {
       accounts: [privateKey]
     }
     
-  },
+  },*/
 
   solidity: "0.8.18",
 };

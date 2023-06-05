@@ -25,7 +25,7 @@ contract NFT is ERC721URIStorage {
     // Function to mint new tokens (NFT)
     function createToken(string memory tokenURI) public returns (uint) {
         _tokenIds.increment(); // Incrementing the unique token ID for each NFT
-        uint256 newItemId = _tokenIds.current() // Getting the current token ID
+        uint256 newItemId = _tokenIds.current(); // Getting the current token ID
 
         // This mints the token.
         _mint(msg.sender, newItemId); // msg.sender will be the creator and newItemId the token ID
