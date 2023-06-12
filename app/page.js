@@ -1,6 +1,6 @@
 import './globals.css'
-import Link from 'next/link'
-
+import React from 'react'
+import { useClient } from 'react-server-components';
 import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
@@ -11,7 +11,7 @@ import {
 } from '../config'
 
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
-import Market from '../artifacts/contracts/Market.sol/NFTmarket.json'
+import Market from '../artifacts/contracts/NFTmarket.sol/NFTmarket.json'
 
 let rpcEndpoint = null
 
@@ -97,7 +97,7 @@ export default function Home() {
 
   //If the loadingState is 'loaded' and there are no items in the nfts array...
   if (loadingState === 'loaded' && !nfts.length) return (<h1>No items in marketplace</h1>)
-
+  
   return (
     <>
     
