@@ -1,6 +1,6 @@
+"use client"
 import './globals.css'
 import React from 'react'
-import { useClient } from 'react-server-components';
 import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
@@ -96,44 +96,77 @@ export default function Home() {
   }
 
   //If the loadingState is 'loaded' and there are no items in the nfts array...
-  if (loadingState === 'loaded' && !nfts.length) return (<h1>No items in marketplace</h1>)
+  if (loadingState === 'loaded' && !nfts.length)
+    return (
+      <>
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+          crossOrigin="anonymous"
+        ></link>
+
+        <section id="heroe">
+          <div id="content">
+            <div className="top">
+              <div className="main-txt">
+                <h1>Zenith</h1>
+                <h4>An NFT Marketplace</h4>
+              </div>
+            </div>
+          </div>
+        </section>
+        <h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>
+      </>
+    );
   
   return (
     <>
-    
-          <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-          crossOrigin="anonymous"
-        />
-    
-        
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+        crossOrigin="anonymous"
+      ></link>
+
+      <section id="heroe">
         <div id="content">
-          <div class="top">
-            <div class="main-txt">
+          <div className="top">
+            <div className="main-txt">
               <h1>Zenith</h1>
               <h4>An NFT Marketplace</h4>
             </div>
           </div>
+        </div>
+      </section>
 
-
-          <div id="image-container" class="card" style={{width: '18rem'}}>
-
-            <div class="card-body">
-              <h5 class="card-title">3798</h5>
-              <p id="description" class="card-text">Description on the NFT</p>
-              <a id="loadPageButton" style={{marginLeft : '160px'}} class="btn btn-primary">Buy Now</a>
-            </div>
+      <section id="gallery">
+        <div className="container">
+          <div className="row">
+            {
+              nfts.map((nft, i) => (
+                <div key={i} className="col-4">
+                  <div className="card" style="width: 18rem;">
+                    <img src={nft.image} className="card-img-top" alt="..." />
+                    <div className="card-body">
+                      <h5 className="card-title">{nft.name}</h5>
+                      <p className="card-text">{nft.description}</p>
+                      <p className="card-text">{nft.price}</p>
+                      <button type="button" className="btn btn-dark" onClick={() => buyNft(nft)}>Buy</button>
+                    </div>
+                  </div>                  
+                </div>
+              ))
+            }
           </div>
         </div>
-
-        <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      </section>
+      
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossOrigin="anonymous"
-      />
-     </>
-                
-  )
+      ></script>
+    </>
+  );
 }
