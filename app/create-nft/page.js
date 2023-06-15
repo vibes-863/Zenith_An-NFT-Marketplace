@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { ethers } from 'ethers'
 import { create as ipfsHttpClient } from 'ipfs-http-client'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import Web3Modal from 'web3modal'
 
 // This will be used to store the NFTs data
