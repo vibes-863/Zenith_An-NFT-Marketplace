@@ -124,9 +124,9 @@ export default function CreateNFT() {
                 />
             </div>
 
-            <div class="mb-3">
+            <div className="mb-3">
                 <textarea
-                    class="form-control"
+                    className="form-control"
                     id="exampleFormControlTextarea1"
                     rows="3"
                     placeholder="Asset Description"
@@ -147,8 +147,8 @@ export default function CreateNFT() {
                 />
             </div>
 
-            <div class="mb-3">
-                <input class="form-control" type="file" id="formFile" onChange={onChange}/>
+            <div className="mb-3">
+                <input className="form-control" type="file" id="formFile" onChange={onChange}/>
             </div>
 
             {
@@ -157,7 +157,7 @@ export default function CreateNFT() {
                 )
             }
             
-            <button type="button" class="btn btn-dark" onClick={createNFT}>
+            <button type="button" className="btn btn-dark" onClick={createNFT}>
             Create Digital Asset
             </button>
         </div>
