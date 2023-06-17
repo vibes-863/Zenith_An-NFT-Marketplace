@@ -1,5 +1,6 @@
 import './globals.css'
 import Link from 'next/link'
+import Script from 'next/script'
 
 
 export const metadata = {
@@ -13,54 +14,65 @@ function RootLayout({ children }) {
       <head>
         <title>Zenith</title>
         <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
           rel="stylesheet"
-          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
           crossOrigin="anonymous"
-        />
+        ></link>
       </head>
-      
+
       <body>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-          <a className="navbar-brand nav-txt" href="#">Zenith</a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <a className="navbar-brand nav-txt" href="#">
+            Zenith
+          </a>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
             <span className="navbar-toggler-icon"></span>
           </button>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
-                <Link className="nav-link nav-txt" href='/'>Home</Link>
+                <Link className="nav-link nav-txt" href="/">
+                  Home
+                </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link nav-txt" href='/create-nft'>Sell Digital Assets</Link>
+                <Link className="nav-link nav-txt" href="/create-nft">
+                  Sell Digital Assets
+                </Link>
               </li>
-              
+
               <li className="nav-item">
-                <Link className="nav-link nav-txt" href='/my-assets'>My Digital Assets</Link>
+                <Link className="nav-link nav-txt" href="/my-assets">
+                  My Digital Assets
+                </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link nav-txt" href='/dashboard'>Dashboard</Link>
+                <Link className="nav-link nav-txt" href="/dashboard">
+                  Dashboard
+                </Link>
               </li>
             </ul>
-            {/* <form className="form-inline my-2 my-lg-0">
-
-              <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Connect Wallet</button>
-            </form>  */}
           </div>
         </nav>
-        <main>
-        {children}
-        </main>
-      <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-        crossOrigin="anonymous"
-      ></script>
-      
+        <main>{children}</main>
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+          crossOrigin="anonymous"
+        ></script>
       </body>
     </html>
-  )
+  );
 }
 
 export default RootLayout
