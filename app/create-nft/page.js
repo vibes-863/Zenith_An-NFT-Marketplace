@@ -33,11 +33,11 @@ export default function CreateNFT() {
             const added = await client.add(
                 file,
                 {
-                    progress: (prog) => console.log('received: ${prog}')
+                    progress: (prog) => console.log(`received: ${prog}`)
                 }
             )
             // after the file is uploaded, we can identify the url of the file.
-            const url = 'https://ipfs.infura.io/ipfs/${added.path}'
+            const url = `https://ipfs.infura.io/ipfs/${added.path}`
             // we then set the url of the NFT to the url above
             setFileUrl(url)
         } catch (e) {
@@ -47,6 +47,7 @@ export default function CreateNFT() {
 
     // the following function is used to create and saving it to ipfs
     async function createNFT() {
+        console.log('Done')
         // we destructure the name, description, and price from the form input
         const { name, description, price } = formInput
         // we then check to see if all the required values have been entered.
@@ -60,7 +61,8 @@ export default function CreateNFT() {
         // we then save the data to ipfs using try and catch.
         try {
             const added = await client.add(data)
-            const url = 'https://ipfs.infura.io/ipfs/${added.path}'
+            const url = `https://ipfs.infura.io/ipfs/${added.path}`
+            console.log('Done')
             // adter file is uploaded to IPFS, pass the URL to save it on the blockchain network
             createSale(url)
         } catch (error) {
@@ -78,7 +80,7 @@ export default function CreateNFT() {
 
         //It then creates a Web3Provider using the established connection and obtains the signer (account) for executing transactions.
         const provider = new ethers.providers.Web3Provider(connection)
-        const signer = provider.getSigner
+        const signer = provider.getSigner()
 
         //An instance of the nft contract is created using the nftaddress, ABI, and signer.
         let contract = new ethers.Contract(nftaddress, NFT.abi, signer)
@@ -157,7 +159,7 @@ export default function CreateNFT() {
                 )
             }
             
-            <button type="button" class="btn btn-dark" onClick={createNFT}>
+            <button class="btn btn-dark" onClick={createNFT}>
             Create Digital Asset
             </button>
         </div>
