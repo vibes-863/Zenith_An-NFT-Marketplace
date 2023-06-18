@@ -9,69 +9,55 @@ export const metadata = {
 }
 
 function RootLayout({ children }) {
+  console.log('Done1')
   return (
-    <html lang="en">
-      <head>
-        <title>Zenith</title>
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-          crossOrigin="anonymous"
-        ></link>
-      </head>
+    <>
+      <html lang="en">
+        <head>
+          <title>Zenith</title>
+          <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+            crossOrigin="anonymous"
+          ></link>
+        </head>
 
-      <body>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-          <a className="navbar-brand nav-txt" href="#">
-            Zenith
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
+        <body>
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">Zenith</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/create-nft">Sell Digital Assets</a>
+                  </li>
 
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <Link className="nav-link nav-txt" href="/">
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link nav-txt" href="/create-nft">
-                  Sell Digital Assets
-                </Link>
-              </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/my-assets">My Digital Assets</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/dashboard">Dashboard</a>
+                  </li>
+                </ul>
 
-              <li className="nav-item">
-                <Link className="nav-link nav-txt" href="/my-assets">
-                  My Digital Assets
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link nav-txt" href="/dashboard">
-                  Dashboard
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <main>{children}</main>
-        <script
-          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-          crossOrigin="anonymous"
-        ></script>
-      </body>
-    </html>
+              </div>
+            </div>
+          </nav>
+          <main>{children}</main>
+          <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossOrigin="anonymous"
+          ></script>
+        </body>
+      </html></>
   );
 }
 
