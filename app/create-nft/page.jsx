@@ -6,7 +6,18 @@ import { useRouter } from 'next/navigation'
 import Web3Modal from 'web3modal'
 
 // This will be used to store the NFTs data
-const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
+const projectId = '2ROCNYP2qlyoOUHTSOm9TemPeNL';
+const projectSecret = '3cb19c85765a4bff1fdd54d862536eae';
+const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+const client = ipfsHttpClient({
+  host: 'ipfs.infura.io',
+  port: 5001,
+  protocol: 'https',
+  apiPath: '/api/v0',
+    headers: {
+        authorization: auth,
+    }
+})
 
 import {
     nftaddress, nftmarketaddress
@@ -27,7 +38,7 @@ export default function CreateNFT() {
     async function onChange(e) {
         // the array will only contain one item, and so we take the first item
         const file = e.target.files[0]
-
+        
         try {
             // we wait for the file to get uploaded.
             const added = await client.add(
@@ -37,7 +48,7 @@ export default function CreateNFT() {
                 }
             )
             // after the file is uploaded, we can identify the url of the file.
-            const url = `https://ipfs.infura.io/ipfs/${added.path}`
+            const url = `https://zenith.infura-ipfs.io/ipfs/${added.path}`
             // we then set the url of the NFT to the url above
             setFileUrl(url)
         } catch (e) {
@@ -47,7 +58,6 @@ export default function CreateNFT() {
 
     // the following function is used to create and saving it to ipfs
     async function createNFT() {
-        console.log('Done')
         // we destructure the name, description, and price from the form input
         const { name, description, price } = formInput
         // we then check to see if all the required values have been entered.
@@ -62,7 +72,6 @@ export default function CreateNFT() {
         try {
             const added = await client.add(data)
             const url = `https://ipfs.infura.io/ipfs/${added.path}`
-            console.log('Done')
             // adter file is uploaded to IPFS, pass the URL to save it on the blockchain network
             createSale(url)
         } catch (error) {
@@ -73,7 +82,7 @@ export default function CreateNFT() {
 
     /**  the following function lists the NFT on Zenith by saving it onto the blockchain network.
     * It dpes this by making the owner of the NFT, Zenith */
-    async function createSale() {
+    async function createSale(url) {
         //It creates an instance of Web3Modal and prompts the user to connect to their Ethereum wallet.
         const web3Modal = new Web3Modal()
         const connection = await web3Modal.connect()
@@ -102,10 +111,12 @@ export default function CreateNFT() {
         // We get the listing price and then turn that listing price into a string.
         let listingPrice = await contract.getListingPrice()
         listingPrice = listingPrice.toString()
+        console.log(listingPrice)
 
         // We then wait for the NFT to be listed into the marketplace
         transaction = await contract.createMarketItem(nftaddress, itemId, price, { value: listingPrice }
         )
+        console.log(done)
         await transaction.wait()
 
         // We then reroute the user to the home page.
