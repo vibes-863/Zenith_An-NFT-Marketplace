@@ -132,7 +132,7 @@ export default function Home() {
             {
               nfts.map((nft, i) => (
                 <div key={i} className="col-4">
-                  <div className="card" style="width: 18rem;">
+                  <div className="card" style={{ width: '18rem' }}>
                     <img src={nft.image} className="card-img-top" alt="..." />
                     <div className="card-body">
                       <h5 className="card-title">{nft.name}</h5>
