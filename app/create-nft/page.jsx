@@ -97,10 +97,10 @@ export default function CreateNFT() {
         let transaction = await contract.createToken(url)
         let tx = await transaction.wait()
 
-        // We then want the itemId to return from the transaction
+        // We then want the tokenId to return from the transaction
         let event = tx.events[0]
         let value = event.args[2]
-        let itemId = value.toNumber
+        let tokenId = value.toNumber
 
         // we then need to find the price the user wants to sell the NFT for.
         const price = ethers.utils.parseUnits(formInput.price, "ether")
@@ -114,7 +114,7 @@ export default function CreateNFT() {
         console.log(listingPrice)
 
         // We then wait for the NFT to be listed into the marketplace
-        transaction = await contract.createMarketItem(nftaddress, itemId, price, { value: listingPrice }
+        transaction = await contract.createMarketItem(nftaddress, tokenId, price, { value: listingPrice }
         )
         console.log(done)
         await transaction.wait()
