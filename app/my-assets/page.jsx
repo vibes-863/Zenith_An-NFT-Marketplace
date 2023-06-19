@@ -3,6 +3,7 @@ import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Web3Modal from "web3modal"
+import { useRouter } from 'next/navigation'
 
 import {
   nftaddress, nftmarketaddress
@@ -18,6 +19,7 @@ export default function MyAssets() {
     *  loading status of the NFTs. */
     const [nfts, setNfts] = useState([])
     const [loadingState, setLoadingState] = useState('not-loaded')
+    const router = useRouter()
 
     //The 'useEffect' hook is used to load the NFTs when the component mounts. 
     useEffect(() => {
@@ -53,6 +55,7 @@ export default function MyAssets() {
                 seller: i.seller,
                 owner: i.owner,
                 image: meta.data.image,
+                tokenUri
             }
             return item
         }))
@@ -60,6 +63,15 @@ export default function MyAssets() {
         setNfts(items)
         setLoadingState('loaded') 
     }
+
+    /**  The listNFT function will reroute the page to the re-list nft page along with the nfts data where the user 
+     * will be able to re-list their NFT*/
+    function listNFT(nft) {
+        console.log('nft:', nft)
+        router.push(`/resell-nft?id=${nft.tokenId}&tokenUri=${nft.tokenUri}`)
+
+    }
+
     //If the loadingState is 'loaded' and there are no items in the nfts array...
     if (loadingState === 'loaded' && !nfts.length) return (
         <h1 className="px-20 py-10 text-3xl">No assets owned</h1>
@@ -77,6 +89,7 @@ export default function MyAssets() {
                             <img src={nft.image} className="card-img-top" alt="..." />
                             <div className="card-body">
                             <p className="card-text">{nft.price}</p>
+                            <button type="button" className="btn btn-dark" onClick={() => listNFT(nft)}>Re-List</button>
                             </div>
                         </div>                  
                         </div>
