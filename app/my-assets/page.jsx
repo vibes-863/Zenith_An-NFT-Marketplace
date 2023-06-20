@@ -68,7 +68,7 @@ export default function MyAssets() {
      * will be able to re-list their NFT*/
     function listNFT(nft) {
         console.log('nft:', nft)
-        router.push(`/resell-nft?id=${nft.tokenId}&tokenUri=${nft.tokenUri}`)
+        router.push(`/relist-nft?id=${nft.tokenId}&tokenUri=${nft.tokenUri}`)
 
     }
 
