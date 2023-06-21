@@ -51,7 +51,7 @@ export default function MyAssets() {
             let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
             let item = {
                 price,
-                itemId: i.itemId.toNumber(),
+                tokenId: i.tokenId.toNumber(),
                 seller: i.seller,
                 owner: i.owner,
                 image: meta.data.image,
