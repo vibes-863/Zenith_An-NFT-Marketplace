@@ -216,9 +216,7 @@ export default function tutorial(){
 
   <div className="holder">
     <h2 style={{ display:"inline", fontSize:"60px", }}>Creating a Metamask Wallet</h2>
-    <a href="https://metamask.io/" type="button" className="btn btn-outline-warning" style="position: absolute;
-    right: 150px;
-    top: 65px;" ><img src="metamask-icon.png" style={{ width:"25px", }}/> Metamask
+    <a href="https://metamask.io/" type="button" className="btn btn-outline-warning" style={{position: "absolute", right: "150px", top: "65px"}} ><img src="metamask-icon.png" style={{ width:"25px", }}/> Metamask
     </a>
     <ol>
       <li>
