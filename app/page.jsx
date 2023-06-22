@@ -137,7 +137,7 @@ export default function Home() {
                     <div className="card-body">
                       <h5 className="card-title">{nft.name}</h5>
                       <p className="card-text">{nft.description}</p>
-                      <p className="card-text">{nft.price}</p>
+                      <p className="card-text">{nft.price} ETH</p>
                       <button type="button" className="btn btn-dark" onClick={() => buyNft(nft)}>Buy</button>
                     </div>
                   </div>                  

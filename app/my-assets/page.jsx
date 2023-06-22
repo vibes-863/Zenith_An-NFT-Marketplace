@@ -88,7 +88,7 @@ export default function MyAssets() {
                         <div className="card" style={{ width: '18rem' }}>
                             <img src={nft.image} className="card-img-top" alt="..." />
                             <div className="card-body">
-                            <p className="card-text">{nft.price}</p>
+                            <p className="card-text">Price - {nft.price} ETH</p>
                             <button type="button" className="btn btn-dark" onClick={() => listNFT(nft)}>Re-List</button>
                             </div>
                         </div>                  
