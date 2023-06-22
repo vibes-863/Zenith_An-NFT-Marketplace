@@ -31,20 +31,20 @@ function RootLayout({ children }) {
               <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                   <li className="nav-item">
-                    <a className="nav-link active" aria-current="page" href="/">Home</a>
+                    <a className="nav-link active link hover-2" aria-current="page" href="/">Home</a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/create-nft">Sell Digital Assets</a>
+                    <a className="nav-link link hover-2" href="/create-nft">Sell Digital Assets</a>
                   </li>
 
                   <li className="nav-item">
-                    <a className="nav-link" href="/my-assets">My Digital Assets</a>
+                    <a className="nav-link link hover-2" href="/my-assets">My Digital Assets</a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/dashboard">Dashboard</a>
+                    <a className="nav-link link hover-2" href="/dashboard">Dashboard</a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/tutorial">Tutorial</a>
+                    <a className="nav-link link hover-2" href="/tutorial">Tutorial</a>
                   </li>
                 </ul>
 
