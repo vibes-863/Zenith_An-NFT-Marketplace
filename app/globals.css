@@ -86,3 +86,154 @@ top: 150px;
 display: block;
 width: fit-content;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#body {
+  background-color: #F0F5F9;
+}
+
+.jumbotron {
+  background-color: #52616B;
+  background-size: cover;
+  color: #C9D6DF;
+  text-align: center;
+  padding: 100px;
+  margin-bottom: 0px;
+}
+
+.tutorial-card {
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.tutorial-card.animation-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.slide-up {
+  opacity: 0;
+  transform: translateY(100px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.slide-up.animation-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.holder {
+  width: 100%;
+  height: fit-content;
+  background-color: #F0F5F9;
+  padding: 50px 60px 0 60px;
+  position: relative;
+}
+
+.holder2 {
+  width: 100%;
+  height: fit-content;
+  background-color: #C9D6DF;
+  padding: 50px 60px;
+}
+
+h2 {
+
+  font-size: 90px;
+  font-family: 'Prompt', sans-serif;
+}
+
+p {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 35px;
+}
+
+.container {
+  width: 50%;
+}
+
+
+.container1 {
+  display: flex;
+  background-color: #F0F5F9;
+  padding-top: 20px;
+  padding-right: 20px;
+}
+
+.column {
+  flex: 1;
+  padding: 10px;
+
+  align-self: center;
+}
+
+.secondary-div {
+  margin: 10px;
+  padding: 20px;
+
+  border: 1px solid #ccc;
+}
+
+.carousel-inner .carousel-item {
+  background-color: black;
+  width: 100%;
+  height: fit-content;
+  padding: 50px 70px;
+}
+
+.carousel-item p {
+  color: #F0F5F9;
+}
+
+.carousel-head {
+  padding: 20px;
+  font-size: 60px;
+  display: inline-block;
+}
+
+.hover-1 {
+  &:after {
+      content:'';
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      bottom: 0;
+      left: 0;
+      background-color: white;
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.5s;
+  }
+
+  &:hover {
+      &:after {
+          transform-origin: bottom left;
+          transform: scaleX(1);
+      }
+  }
+}
+
+.link {
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  padding: 10px 0;
+  color: #fff;
+  left: 50%;
+  transform: translateX(-50%);
+}
