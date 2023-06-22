@@ -51,7 +51,7 @@ export default function MyAssets() {
             let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
             let item = {
                 price,
-                itemId: i.itemId.toNumber(),
+                tokenId: i.tokenId.toNumber(),
                 seller: i.seller,
                 owner: i.owner,
                 image: meta.data.image,
@@ -68,7 +68,7 @@ export default function MyAssets() {
      * will be able to re-list their NFT*/
     function listNFT(nft) {
         console.log('nft:', nft)
-        router.push(`/resell-nft?id=${nft.tokenId}&tokenUri=${nft.tokenUri}`)
+        router.push(`/relist-nft?id=${nft.tokenId}&tokenUri=${nft.tokenUri}`)
 
     }
 
@@ -88,7 +88,7 @@ export default function MyAssets() {
                         <div className="card" style={{ width: '18rem' }}>
                             <img src={nft.image} className="card-img-top" alt="..." />
                             <div className="card-body">
-                            <p className="card-text">{nft.price}</p>
+                            <p className="card-text">Price - {nft.price} ETH</p>
                             <button type="button" className="btn btn-dark" onClick={() => listNFT(nft)}>Re-List</button>
                             </div>
                         </div>                  
