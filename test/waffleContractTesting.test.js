@@ -157,7 +157,28 @@ describe("NFTMarketplace", async function () {
             expect(+fromWei(deployerFinalEthBal)).to.equal(+fromWei(listingPrice) + +fromWei(deployerInitialEthBal));
             // The buyer should now own the nft
             expect(await nft.ownerOf(1)).to.equal(addr2.address);
-          
+        });
+
+        it("Should fail for invalid item IDs", async function () {
+            // Fails for invalid item IDs
+            await expect(market.connect(addr2).createMarketSale(nftContractAddress, 2, { value: toWei(price) })
+            ).to.be.revertedWith("Item doesn't exist");
+            await expect(market.connect(addr2).createMarketSale(nftContractAddress, 0, { value: toWei(price) })
+            ).to.be.revertedWith("Item doesn't exist");
+        });
+
+        it("Should fail when not enough ether is paid", async function () {
+            // Fails when not enough ether is paid with the transaction.
+            await expect(market.connect(addr2).createMarketSale(nftContractAddress, 1, { value: toWei(price - 1) })
+            ).to.be.revertedWith("Please submit the asking price in order to complete the purchase");
+        });
+
+        it("Should fail for sold items", async function () {
+            // addr2 purchases item 1
+            await expect(market.connect(addr2).createMarketSale(nftContractAddress, 1, { value: toWei(price) }));
+            // deployer tries purchasing item 1 after its been sold
+            await expect(market.connect(deployer).createMarketSale(nftContractAddress, 1, { value: toWei(price) })
+            ).to.be.revertedWith("Item already sold");
         });
     });
 });

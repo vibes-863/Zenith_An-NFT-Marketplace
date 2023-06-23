@@ -105,7 +105,9 @@ contract NFTmarket is ReentrancyGuard{
     ) public payable nonReentrant {
     uint price = idToMarketItem[itemId].price; // Getting the price of the item
     uint tokenId = idToMarketItem[itemId].tokenId; // Getting the token ID of the item
+    require(itemId > 0 && itemId <= _itemIds.current(), "Item doesn't exist"); // Checks if the itemID is valid
     require(msg.value == price, "Please submit the asking price in order to complete the purchase"); // Checking if the sent value is equal to the item price
+    require(!idToMarketItem[itemId].sold, "Item already sold"); // Checks if the item is already sold
 
     // Transferring the payment to the seller
     idToMarketItem[itemId].seller.transfer(msg.value);
