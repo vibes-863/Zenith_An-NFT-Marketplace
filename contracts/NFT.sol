@@ -18,7 +18,7 @@ contract NFT is ERC721URIStorage {
     
     /* The constructor initializes the 'contractAddress' variable with the address of the Marketplace. Note: as the 
     address of the marketplace is needed, we will first deploy the NFTMarketplace contract and then this contract*/
-    constructor(address marketplaceAddress) ERC721("Zenith Tokens", "METT"){
+    constructor(address marketplaceAddress) ERC721("Zenith Tokens", "ZET"){
         contractAddress = marketplaceAddress;
     }
 
