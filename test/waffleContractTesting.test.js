@@ -1,5 +1,4 @@
 const { expect } = require("chai");
-const exp = require("constants");
 
 // toWei converts ether to wei
 const toWei = (num) => ethers.utils.parseEther(num.toString());
@@ -121,5 +120,44 @@ describe("NFTMarketplace", async function () {
                 })
             ).to.be.revertedWith("Price must be equal to listing price");
         })
+    });
+
+    describe("Purchasing marketplace items", function () {
+        let price = 2;
+        beforeEach(async function () {
+            // addr1 mints an nft
+            await nft.connect(addr1).createToken(URI);
+            // addr1 makes their nft a marketplace item
+            await market.connect(addr1).createMarketItem(nftContractAddress, 1, toWei(price), { value: listingPrice });
+            listingPrice = await market.getListingPrice();
+            listingPrice = listingPrice.toString();
+        });
+
+        it("Should pay seller, transfer NFT to buyer, update item owner to buyer, update item as sold, increase count of sold items and transfer listing fee to contract owner (deployer)", async function () {
+            const sellerInitalEthBal = await addr1.getBalance();
+            const deployerInitialEthBal = await deployer.getBalance();
+            // fetch the item's price to be paid by the buyer to the owner of the NFT
+            console.log()
+            // addr2 purchases item
+            await market.connect(addr2).createMarketSale(nftContractAddress, 1, { value: toWei(price) });
+            // Get item from idToMarketItem mapping then check fields to ensure they are correct
+            const item = await market.idToMarketItem(1);
+            expect(item.itemId).to.equal(1);
+            expect(item.nftContract).to.equal(nftContractAddress);
+            expect(item.tokenId).to.equal(1);
+            expect(item.seller).to.equal(addr1.address);
+            expect(item.owner).to.equal(addr2.address);
+            expect(item.price).to.equal(toWei(price));
+            expect(item.sold).to.equal(true);
+
+            const sellerFinalEthBal = await addr1.getBalance();
+            const deployerFinalEthBal = await deployer.getBalance();
+            // Seller should receive payment for the price of the NFT sold.
+            expect(+fromWei(sellerFinalEthBal)).to.equal(+price + +fromWei(sellerInitalEthBal));
+            expect(+fromWei(deployerFinalEthBal)).to.equal(+fromWei(listingPrice) + +fromWei(deployerInitialEthBal));
+            // The buyer should now own the nft
+            expect(await nft.ownerOf(1)).to.equal(addr2.address);
+          
+        });
     });
 });
