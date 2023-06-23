@@ -4,6 +4,7 @@ import { ethers } from 'ethers'
 import { create as ipfsHttpClient } from 'ipfs-http-client'
 import { useRouter } from 'next/navigation'
 import Web3Modal from 'web3modal'
+import $ from 'jquery';
 
 // This will be used to store the NFTs data
 const projectId = '2ROCNYP2qlyoOUHTSOm9TemPeNL';
@@ -121,7 +122,7 @@ export default function CreateNFT() {
         router.push('/')
 
     }
-
+    $("#CreateButton").one("click", createNFT);
     return (
         <div className="container">
             <div className="mb-3">
@@ -168,9 +169,10 @@ export default function CreateNFT() {
                 )
             }
             
-            <button className="btn btn-dark" onClick={createNFT}>
+            <button className="btn btn-dark" id='CreateButton'>
             Create Digital Asset
             </button>
         </div>
     );
 }
+

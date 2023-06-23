@@ -25,9 +25,13 @@
     "ethers": "^5.7.2",
     "hardhat": "^2.14.1",
     "ipfs-http-client": "^50.1.2",
+    "jquery": "^3.7.0",
     "next": "13.4.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "web3modal": "^1.9.12"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.16"
   }
 }
