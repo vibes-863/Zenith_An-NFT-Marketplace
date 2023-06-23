@@ -5,7 +5,7 @@ import axios from 'axios'
 import Web3Modal from "web3modal"
 
 import {
-  nftaddress, nftmarketaddress
+    nftaddress, nftmarketaddress
 } from '../../config'
 
 import NFT from '../../artifacts/contracts/NFT.sol/NFT.json'
@@ -77,18 +77,21 @@ export default function Dashboard() {
             <section id="allItems">
                 <h2 className='text-2xl py-2'>Items Created</h2>
                 <div className="container">
-                    <div className="row">
+                    <div className="row row-cols-auto">
                         {
-                        nfts.map((nft, i) => (
-                            <div key={i} className="col-4">
-                            <div className="card" style={{ width: '18rem' }}>
-                                <img src={nft.image} className="card-img-top" alt="..." />
-                                <div className="card-body">
-                                <p className="card-text">Price - {nft.price} ETH</p>
+                            nfts.map((nft, i) => (
+                                <div key={i} className="col">
+                                    <div className="card" style={{ width: '18rem' }}>
+                                    <div className='img-holder'>
+                                        <img src={nft.image} className="card-img-top" alt="..." />
+                                        </div><div className="card-body">
+                                        <h5 className="card-title">{nft.name}</h5>
+                                            <p className="card-text">{nft.description}</p>
+                                            <p className="card-text">Price - {nft.price} ETH</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>                  
-                            </div>
-                        ))
+                            ))
                         }
                     </div>
                 </div>
@@ -100,18 +103,22 @@ export default function Dashboard() {
                         <div>
                             <h2 className='text-2xl py-2'>Items sold</h2>
                             <div className="container">
-                                <div className="row">
+                                <div className="row row-cols-auto">
                                     {
-                                    sold.map((nft, i) => (
-                                        <div key={i} className="col-4">
-                                        <div className="card" style={{ width: '18rem' }}>
-                                            <img src={nft.image} className="card-img-top" alt="..." />
-                                            <div className="card-body">
-                                            <p className="card-text">Price - {nft.price} ETH</p>
+                                        sold.map((nft, i) => (
+                                            <div key={i} className="col">
+                                                <div className="card" style={{ width: '18rem' }}>
+                                                    <div className='img-holder'>
+                                                        <img src={nft.image} className="card-img-top" alt="..." />
+                                                    </div>
+                                                    <div className="card-body">
+                                                        <h5 className="card-title">{nft.name}</h5>
+                                                        <p className="card-text">{nft.description}</p>
+                                                        <p className="card-text">Price - {nft.price} ETH</p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>                  
-                                        </div>
-                                    ))
+                                        ))
                                     }
                                 </div>
                             </div>
