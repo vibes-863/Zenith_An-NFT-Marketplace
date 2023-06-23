@@ -287,3 +287,18 @@ p {
 .nav-item{
   padding: 0 15px;
 }
+
+.card{
+  height: 530px;
+}
+
+.img-holder{
+  height: 265px;
+  align-items: center;
+  display: flex;
+}
+
+.card-img-top{
+  max-width: 286.4px;
+  max-height: 265px;
+}

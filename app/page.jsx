@@ -128,12 +128,14 @@ export default function Home() {
 
       <section id="gallery">
         <div className="container">
-          <div className="row">
+          <div className="row row-cols-auto">
             {
               nfts.map((nft, i) => (
-                <div key={i} className="col-4">
+                <div key={i} className="col">
                   <div className="card" style={{ width: '18rem' }}>
+                    <div className='img-holder'>
                     <img src={nft.image} className="card-img-top" alt="..." />
+                    </div>
                     <div className="card-body">
                       <h5 className="card-title">{nft.name}</h5>
                       <p className="card-text">{nft.description}</p>
