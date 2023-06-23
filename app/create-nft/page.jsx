@@ -150,6 +150,7 @@ export default function CreateNFT() {
 
             <div className="mb-3">
                 <input
+                    type='number'
                     className="form-control"
                     id="exampleFormControlInput1"
                     placeholder="Asset Price in Matic"
