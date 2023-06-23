@@ -20,12 +20,15 @@ if (process.env.NEXT_PUBLIC_WORKSPACE_URL) {
 }
 
 export default function Home() {
+  
 
   /**The 'Home' component maintains state using the 'nfts' and 'loadingState' variables.
    * The 'nfts' state holds an array of NFT objects, while 'loadingState' tracks the
    *  loading status of the NFTs. */
   const [nfts, setNfts] = useState([])
   const [loadingState, setLoadingState] = useState('not-loaded')
+
+  const [loadingItems, setLoadingItems] = useState([]) // Track loading state for each NFT item
 
   //The 'useEffect' hook is used to load the NFTs when the component mounts. 
   useEffect(() => {
@@ -69,7 +72,9 @@ export default function Home() {
   }
 
   /**The buyNft function is an asynchronous function responsible for buying an NFT from the marketplace.*/
-  async function buyNft(nft) {
+  async function buyNft(nft, index) {
+    setLoadingItems((prevLoadingItems) => [...prevLoadingItems, index]) // Update loading state for the item
+
 
     //It creates an instance of Web3Modal and prompts the user to connect to their Ethereum wallet.
     const web3Modal = new Web3Modal()
@@ -85,6 +90,7 @@ export default function Home() {
     //The price of the NFT is parsed from a string to a BigNumber using ethers.utils.parseUnits.
     const price = ethers.utils.parseUnits(nft.price.toString(), 'ether')
     
+    try{
     //The createMarketSale function is called on the contract to execute the transaction and buy the NFT.
     const transaction = await contract.createMarketSale(nftaddress, nft.tokenId, {
       value: price
@@ -93,7 +99,12 @@ export default function Home() {
     // After the transaction is successfully completed, the loadNFTs function is called to refresh the list of NFTs.
     await transaction.wait()
     loadNFTs()
+  }catch (error){
+    console.error('Error buying NFT:', error)
+  } finally {
+    setLoadingItems((prevLoadingItems) => prevLoadingItems.filter((_, idx) => idx !== index)) // Remove item from loading state
   }
+}
 
   //If the loadingState is 'loaded' and there are no items in the nfts array...
   if (loadingState === 'loaded' && !nfts.length)
@@ -112,7 +123,7 @@ export default function Home() {
         <h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>
       </>
     );
-  
+
   return (
     <>
       <section id="heroe">
@@ -140,7 +151,14 @@ export default function Home() {
                       <h5 className="card-title">{nft.name}</h5>
                       <p className="card-text">{nft.description}</p>
                       <p className="card-text">{nft.price} ETH</p>
-                      <button type="button" className="btn btn-dark" onClick={() => buyNft(nft)}>Buy</button>
+                      <button
+                      type="button"
+                      className="btn btn-dark"
+                      disabled={loadingItems.includes(i)} // Disable the button if it's already loading or user is the owner
+                      onClick={() => buyNft(nft, i)}
+                    >
+                      {loadingItems.includes(i) ? 'Loading...' : 'Buy'}
+                    </button>
                     </div>
                   </div>                  
                 </div>
