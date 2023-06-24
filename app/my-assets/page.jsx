@@ -6,7 +6,7 @@ import Web3Modal from "web3modal"
 import { useRouter } from 'next/navigation'
 
 import {
-  nftaddress, nftmarketaddress
+    nftaddress, nftmarketaddress
 } from '../../config'
 
 import NFT from '../../artifacts/contracts/NFT.sol/NFT.json'
@@ -24,7 +24,7 @@ export default function MyAssets() {
     //The 'useEffect' hook is used to load the NFTs when the component mounts. 
     useEffect(() => {
         loadNFTs()
-    }, [])    
+    }, [])
 
     // This asynchronous function will load the NFTs that are owned by the user within the marketplace
     async function loadNFTs() {
@@ -61,7 +61,7 @@ export default function MyAssets() {
         }))
         /**The resulting array of items is stored in the nfts state variable, and the loadingState is set to 'loaded'. */
         setNfts(items)
-        setLoadingState('loaded') 
+        setLoadingState('loaded')
     }
 
     /**  The listNFT function will reroute the page to the re-list nft page along with the nfts data where the user 
@@ -81,24 +81,26 @@ export default function MyAssets() {
         <div>
             <section id="gallery">
                 <div className="container">
-                <div className="row">
-                    {
-                    nfts.map((nft, i) => (
-                        <div key={i} className="col-4">
-                        <div className="card" style={{ width: '18rem' }}>
-                            <img src={nft.image} className="card-img-top" alt="..." />
-                            <div className="card-body">
-                            <p className="card-text">Price - {nft.price} ETH</p>
-                            <button type="button" className="btn btn-dark" onClick={() => listNFT(nft)}>Re-List</button>
-                            </div>
-                        </div>                  
-                        </div>
-                    ))
-                    }
-                </div>
+                    <div className="row row-cols-auto">
+                        {
+                            nfts.map((nft, i) => (
+                                <div key={i} className="col">
+                                    <div className="card" style={{ width: '18rem' }}>
+                                        <div className='img-holder'>
+                                            <img src={nft.image} className="card-img-top" alt="..." />
+                                        </div>
+                                        <div className="card-body">
+                                            <p className="card-text">Price - {nft.price} ETH</p>
+                                            <button type="button" className="btn btn-dark" onClick={() => listNFT(nft)}>Re-List</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
                 </div>
             </section>
         </div>
     )
-    
+
 }
