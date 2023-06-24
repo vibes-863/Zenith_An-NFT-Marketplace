@@ -14,14 +14,14 @@ contract NFTmarket is ReentrancyGuard{
     These counters will be used to keep track of the total number of items and the number of items
     that have been sold in the marketplace.*/
     using Counters for Counters.Counter;
-    Counters.Counter private _itemIds;
-    Counters.Counter private _itemsSold;
+    Counters.Counter public _itemIds;
+    Counters.Counter public _itemsSold;
 
     //The 'owner' variable is an address that represents the owner of the contract.
-    address payable owner;
+    address payable public owner;
 
     //The 'listingPrice' variable represents the price it costs to list an item in the marketplace.
-    uint256 listingPrice = 0.025 ether;
+    uint256 public listingPrice = 0.025 ether;
 
     //The constructor initializes the 'owner' variable with the address of the contract deployer.
     constructor() {
@@ -42,7 +42,7 @@ contract NFTmarket is ReentrancyGuard{
     }
 
     /*The idToMarketItem mapping is used to map each itemId to its corresponding MarketItem.*/
-    mapping(uint256 => MarketItem) private idToMarketItem;
+    mapping(uint256 => MarketItem) public idToMarketItem;
 
     /*The MarketItemCreated event is emitted when a new item is listed in the marketplace.*/
     event MarketItemCreated (
@@ -105,7 +105,9 @@ contract NFTmarket is ReentrancyGuard{
     ) public payable nonReentrant {
     uint price = idToMarketItem[itemId].price; // Getting the price of the item
     uint tokenId = idToMarketItem[itemId].tokenId; // Getting the token ID of the item
+    require(itemId > 0 && itemId <= _itemIds.current(), "Item doesn't exist"); // Checks if the itemID is valid
     require(msg.value == price, "Please submit the asking price in order to complete the purchase"); // Checking if the sent value is equal to the item price
+    require(!idToMarketItem[itemId].sold, "Item already sold"); // Checks if the item is already sold
 
     // Transferring the payment to the seller
     idToMarketItem[itemId].seller.transfer(msg.value);

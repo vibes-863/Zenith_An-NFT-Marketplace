@@ -57,7 +57,7 @@ export default function Home() {
       let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
       let item = {
         price,
-        tokenId: i.tokenId.toNumber(),
+        itemId: i.itemId.toNumber(),
         seller: i.seller,
         owner: i.owner,
         image: meta.data.image,
@@ -98,7 +98,7 @@ export default function Home() {
     
     try{
     //The createMarketSale function is called on the contract to execute the transaction and buy the NFT.
-    const transaction = await contract.createMarketSale(nftaddress, nft.tokenId, {
+    const transaction = await contract.createMarketSale(nftaddress, nft.itemId, {
       value: price
     })
 
