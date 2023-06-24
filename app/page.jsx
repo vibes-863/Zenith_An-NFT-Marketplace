@@ -27,7 +27,7 @@ export default function Home() {
    *  loading status of the NFTs. */
   const [nfts, setNfts] = useState([])
   const [loadingState, setLoadingState] = useState('not-loaded')
-
+  const [buttonStates, setButtonStates] = useState([])
   const [loadingItems, setLoadingItems] = useState([]) // Track loading state for each NFT item
 
   //The 'useEffect' hook is used to load the NFTs when the component mounts. 
@@ -69,11 +69,17 @@ export default function Home() {
     /**The resulting array of items is stored in the nfts state variable, and the loadingState is set to 'loaded'. */
     setNfts(items)
     setLoadingState('loaded') 
+    setButtonStates(Array(items.length).fill(false));
   }
 
   /**The buyNft function is an asynchronous function responsible for buying an NFT from the marketplace.*/
   async function buyNft(nft, index) {
     setLoadingItems((prevLoadingItems) => [...prevLoadingItems, index]) // Update loading state for the item
+    setButtonStates((prevButtonStates) => {
+      const newButtonStates = [...prevButtonStates];
+      newButtonStates[index] = true; // Disable the button
+      return newButtonStates;
+    });
 
 
     //It creates an instance of Web3Modal and prompts the user to connect to their Ethereum wallet.
@@ -101,6 +107,12 @@ export default function Home() {
     loadNFTs()
   }catch (error){
     console.error('Error buying NFT:', error)
+    setButtonStates((prevButtonStates) => {
+      const newButtonStates = [...prevButtonStates];
+      newButtonStates[index] = false; // Enable the button
+      return newButtonStates;
+    })
+    setLoadingItems((prevLoadingItems) => prevLoadingItems.filter((_, idx) => idx !== index));
   } finally {
     setLoadingItems((prevLoadingItems) => prevLoadingItems.filter((_, idx) => idx !== index)) // Remove item from loading state
   }
@@ -154,10 +166,10 @@ export default function Home() {
                       <button
                       type="button"
                       className="btn btn-dark"
-                      disabled={loadingItems.includes(i)} // Disable the button if it's already loading or user is the owner
+                      disabled={buttonStates[i]} // Disable the button if it's already loading or user is the owner
                       onClick={() => buyNft(nft, i)}
                     >
-                      {loadingItems.includes(i) ? 'Loading...' : 'Buy'}
+                      {buttonStates[i] ? 'Loading...' : 'Buy'}
                     </button>
                     </div>
                   </div>                  
