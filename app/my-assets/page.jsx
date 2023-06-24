@@ -80,7 +80,7 @@ export default function MyAssets() {
     return (
         <div>
             <section id="gallery">
-                <div className="container">
+                <div className="container" style={{margin: 50,}}>
                     <div className="row row-cols-auto">
                         {
                             nfts.map((nft, i) => (
