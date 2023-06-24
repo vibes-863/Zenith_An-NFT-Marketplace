@@ -1,5 +1,5 @@
 "use client"
-import './globals.css'
+
 import React from 'react'
 import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
@@ -132,7 +132,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>
+        <h3 className="px-20 py-10 text-3xl">No items in marketplace</h3>
       </>
     );
 
