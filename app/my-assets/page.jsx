@@ -74,13 +74,13 @@ export default function MyAssets() {
 
     //If the loadingState is 'loaded' and there are no items in the nfts array...
     if (loadingState === 'loaded' && !nfts.length) return (
-        <h1 className="px-20 py-10 text-3xl">No assets owned</h1>
+        <h3 className="px-20 py-10 text-3xl">No assets owned</h3>
     );
 
     return (
         <div>
             <section id="gallery">
-                <div className="container">
+                <div className="container" style={{margin: 50,}}>
                     <div className="row row-cols-auto">
                         {
                             nfts.map((nft, i) => (

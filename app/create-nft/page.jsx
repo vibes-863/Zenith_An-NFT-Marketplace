@@ -193,7 +193,7 @@ export default function CreateNFT() {
                 )
             }
 
-            <button className="btn btn-dark" id='CreateButton'  disabled={loading} onClick={createNFT}>
+            <button className="btn btn-dark" style={{display:'block'}} id='CreateButton'  disabled={loading} onClick={createNFT}>
             {loading ? 'Creating...' : 'Create Digital Asset'}
             </button>
         </div>
