@@ -45,3 +45,5 @@ typechain-types
 cache
 artifacts
 
+#private key for deployment
+.secret
