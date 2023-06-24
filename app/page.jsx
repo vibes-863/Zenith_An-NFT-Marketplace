@@ -127,7 +127,7 @@ export default function Home() {
             <div className="top">
               <div className="main-txt">
                 <h1>Zenith</h1>
-                <h4>An NFT Marketplace</h4>
+                <h3>An NFT Marketplace</h3>
               </div>
             </div>
           </div>

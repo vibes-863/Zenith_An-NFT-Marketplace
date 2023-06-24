@@ -74,7 +74,7 @@ export default function MyAssets() {
 
     //If the loadingState is 'loaded' and there are no items in the nfts array...
     if (loadingState === 'loaded' && !nfts.length) return (
-        <h1 className="px-20 py-10 text-3xl">No assets owned</h1>
+        <h3 className="px-20 py-10 text-3xl">No assets owned</h3>
     );
 
     return (

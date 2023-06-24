@@ -75,7 +75,7 @@ export default function Dashboard() {
     return (
         <div>
             <section id="allItems">
-                <h2 className='text-2xl py-2'>Items Created</h2>
+                <h3 className='text-2xl py-2'>Items Created</h3>
                 <div className="container" style={{margin: 50,}}>
                     <div className="row row-cols-auto">
                         {
@@ -101,7 +101,7 @@ export default function Dashboard() {
                 {
                     Boolean(sold.length) && (
                         <div>
-                            <h2 className='text-2xl py-2'>Items sold</h2>
+                            <h3 className='text-2xl py-2'>Items sold</h3>
                             <div className="container" style={{margin: 50,}}>
                                 <div className="row row-cols-auto">
                                     {
