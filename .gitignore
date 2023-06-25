@@ -43,7 +43,9 @@ typechain-types
 
 # Hardhat files
 cache
-artifacts
+artifacts/@openzeppelin
+artifacts/build-info
+artifacts/hardhat
 
 #private key for deployment
 .secret
