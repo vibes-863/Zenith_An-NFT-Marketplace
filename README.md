@@ -12,6 +12,24 @@
 ### 1. Getting the project files
 1. Download and extract the project files from the zip file give here https://drive.google.com/drive/folders/1sqxhblc4vwuMWal2svYXz-oX3OAw-a0G?usp=sharing
 
+### 3. Adding .env.local file
+As we have not deployed the file yet, you will still need the environment variables without which the web application wont load. Hence carry out the following steps:
+  1. In the root of the project files directory, create a file called '.env.local'
+  2. Open the file in your code editor and add the following lines:
+      ```
+      # API Key for Infura Polygon Network RPC Endpoint
+      NEXT_PUBLIC_POLYGON_API_KEY=1c04d8dd403749a4b007a8fef3e15142
+
+      # API Key for Infura IPFS Endpoint
+      NEXT_PUBLIC_IPFS_API_KEY=2ROCNYP2qlyoOUHTSOm9TemPeNL
+      # API Key Secret for Infura IPFS Endpoint
+      NEXT_PUBLIC_IPFS_API_SECRET_KEY=3cb19c85765a4bff1fdd54d862536eae
+
+      # Deployer metamask account Private Key
+      DEPLOYER_PRIVATE_KEY=0bbded1274aa57062f5373a512eea2336ed7fbf4d02f31dfce2f9b7ab85dc33c
+      ```
+  3. Now save the file.
+
 ### 2. Running the Development Server
 - We have already deployed our Smart Contracts into the Polygon Mumbai Testnet so all you will have to do is run the development server.
 - Before doing this, you will have to install the dependencies to do this:
