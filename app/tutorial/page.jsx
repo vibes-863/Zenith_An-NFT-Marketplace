@@ -1,5 +1,5 @@
 import Script from './script.jsx';
-import icon from './meta.png';
+//import icon from './meta.png';
 
 export default function tutorial(){
     return(
@@ -216,7 +216,7 @@ export default function tutorial(){
     <h2 style={{ display:"inline", fontSize:"60px", }}>Creating a Metamask Wallet</h2>
     <a href="https://metamask.io/" type="button" className="btn btn-outline-warning" style={{position: 'absolute',
     right: 150,
-    top: 65,}} ><img src={require('./meta.png')} style={{ width:"25px", }}/> Metamask
+    top: 65,}} ><img src="/meta.png" style={{ width:"25px", }}/> Metamask
     </a>
     <ol style={{fontSize: 20}}>
       <li className='slide-up'>
