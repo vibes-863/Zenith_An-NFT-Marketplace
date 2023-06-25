@@ -10,11 +10,7 @@
 - You would also need to install the MetaMask cryptocurrency wallet chrome extension. You should also setup an account with it. Follow steps provided in https://medium.com/publicaio/how-to-create-a-metamask-account-e6d0ef156176 to do so
 
 ### 1. Getting the project files
-1. In your terminal, navigate to the directory where you would like to clone our GitHub Repository.
-2. Then, type in the following command to your terminal
-   ```
-   git clone https://github.com/ShyamKrishna33/TokenTitans-Orbital23.git
-   ```
+1. Download and extract the project files from the zip file give here https://drive.google.com/drive/folders/1sqxhblc4vwuMWal2svYXz-oX3OAw-a0G?usp=drive_link
 
 ### 2. Running the Development Server
 - We have already deployed our Smart Contracts into the Polygon Mumbai Testnet so all you will have to do is run the development server.
