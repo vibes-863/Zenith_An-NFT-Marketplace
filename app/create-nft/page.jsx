@@ -7,9 +7,7 @@ import Web3Modal from 'web3modal'
 import $ from 'jquery';
 
 // This will be used to store the NFTs data
-const projectId = '2ROCNYP2qlyoOUHTSOm9TemPeNL';
-const projectSecret = '3cb19c85765a4bff1fdd54d862536eae';
-const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+const auth = 'Basic ' + Buffer.from(process.env.NEXT_PUBLIC_IPFS_API_KEY + ':' + process.env.NEXT_PUBLIC_IPFS_API_SECRET_KEY).toString('base64');
 const client = ipfsHttpClient({
   host: 'ipfs.infura.io',
   port: 5001,

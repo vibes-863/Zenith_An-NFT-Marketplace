@@ -15,7 +15,7 @@ import Market from '../artifacts/contracts/NFTmarket.sol/NFTmarket.json'
 
 let rpcEndpoint = null
 // below for Mumbai test network
-rpcEndpoint = "https://polygon-mumbai.infura.io/v3/1c04d8dd403749a4b007a8fef3e15142"
+rpcEndpoint = `https://polygon-mumbai.infura.io/v3/${process.env.NEXT_PUBLIC_POLYGON_API_KEY}`
 
 if (process.env.NEXT_PUBLIC_WORKSPACE_URL) {
   rpcEndpoint = process.env.NEXT_PUBLIC_WORKSPACE_URL
