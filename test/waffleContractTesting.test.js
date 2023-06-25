@@ -52,7 +52,7 @@ describe("NFTMarketplace", async function () {
             // addr2 mints an nft
             await nft.connect(addr2).createToken(URI);
             expect(await nft._tokenIds()).to.equal(2);
-            expect(await nft.balanceOf(addr1.address)).to.equal(1);
+            expect(await nft.balanceOf(addr2.address)).to.equal(1);
             expect(await nft.tokenURI(2)).to.equal(URI);
         });
     });
@@ -118,7 +118,7 @@ describe("NFTMarketplace", async function () {
                 .createMarketItem(nftContractAddress, 1, toWei(1), {
                   value: 0,
                 })
-            ).to.be.revertedWith("Price must be equal to listing price");
+            ).to.be.revertedWith("Value paid must be equal to listing price");
         })
     });
 
