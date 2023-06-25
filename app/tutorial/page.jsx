@@ -1,5 +1,5 @@
 import Script from './script.jsx';
-
+import icon from './meta.png';
 
 export default function tutorial(){
     return(
@@ -10,7 +10,7 @@ export default function tutorial(){
   {/* <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/> */}
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+  {/* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/> */}
   
 
 
@@ -54,7 +54,7 @@ export default function tutorial(){
       The uniqueness of an NFT is made possible by utilizing blockchain technology, which is a decentralized digital
       ledger that records transactions securely and transparently. This means that the ownership and history of an NFT
       can be verified and traced back to its original creator.</p>
-    <p className='slide-up'>One of the key features of NFTs is that they allow creators and artists to monetize their digital works directly,
+    <p className='slide-up' style={{marginBottom: 60,}}>One of the key features of NFTs is that they allow creators and artists to monetize their digital works directly,
       without relying on traditional intermediaries like galleries, publishers, or record labels. When someone purchases
       an NFT, they gain ownership of that specific digital item, and the ownership record is stored on the blockchain.
       The value and desirability of an NFT can vary based on factors like the creator's reputation, scarcity, historical
@@ -75,7 +75,7 @@ export default function tutorial(){
       (NFTs). These marketplaces serve as digital marketplaces specifically designed for the exchange of unique digital
       assets.</p>
     <p className='slide-up'>Here's how an NFT marketplace typically functions:</p>
-    <ol>
+    <ol style={{fontSize: 20}}>
       <li className='slide-up'>
         <p>Listing and Discovery: Artists or creators upload their NFTs to the marketplace, providing details about the
           item, such as images, descriptions, and additional information. Users can browse through the marketplace to
@@ -97,7 +97,7 @@ export default function tutorial(){
           cryptocurrency. This integration allows users to connect their wallets to the marketplace, view their owned
           NFTs, and facilitate transactions directly from their wallets.</p>
       </li>
-      <li className='slide-up'>
+      <li className='slide-up' style={{marginBottom: 80}}>
         <p>Community and Engagement: NFT marketplaces often foster a sense of community by providing features for users
           to interact, comment, and engage with the NFTs and creators. This can include features like likes, comments,
           and sharing on social media platforms.</p>
@@ -212,13 +212,13 @@ export default function tutorial(){
     </button>
   </div>
 
-  <div className="holder">
-    <h2 className='slide-up' style={{ display:"inline", fontSize:"60px", }}>Creating a Metamask Wallet</h2>
-    <a href="https://metamask.io/" type="button" className="btn btn-outline-warning slide-up" style={{position: 'absolute',
+  <div className="holder slide-up">
+    <h2 style={{ display:"inline", fontSize:"60px", }}>Creating a Metamask Wallet</h2>
+    <a href="https://metamask.io/" type="button" className="btn btn-outline-warning" style={{position: 'absolute',
     right: 150,
-    top: 65,}} ><img src="metamask-icon.png" style={{ width:"25px", }}/> Metamask
+    top: 65,}} ><img src={require('./meta.png')} style={{ width:"25px", }}/> Metamask
     </a>
-    <ol>
+    <ol style={{fontSize: 20}}>
       <li className='slide-up'>
         <p>Secure your seed phrase: During the wallet creation process, MetaMask provides you with a unique seed phrase
           (or recovery phrase) consisting of 12 or 24 words. This phrase is crucial for restoring access to your wallet

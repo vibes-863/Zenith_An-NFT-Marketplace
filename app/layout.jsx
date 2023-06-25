@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './globals.css'
 import Link from 'next/link'
 import Script from 'next/script'
@@ -14,12 +15,7 @@ function RootLayout({ children }) {
       <html lang="en">
         <head>
           <title>Zenith</title>
-          <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-            crossOrigin="anonymous"
-          ></link>
+          
           <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet"/>
@@ -35,20 +31,20 @@ function RootLayout({ children }) {
               <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                   <li className="nav-item">
-                    <a className="nav-link active" aria-current="page" href="/">Home</a>
+                    <a className="nav-link active link hover-2" aria-current="page" href="/">Home</a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/create-nft">Sell Digital Assets</a>
+                    <a className="nav-link link hover-2" href="/create-nft">Sell Digital Assets</a>
                   </li>
 
                   <li className="nav-item">
-                    <a className="nav-link" href="/my-assets">My Digital Assets</a>
+                    <a className="nav-link link hover-2" href="/my-assets">My Digital Assets</a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/dashboard">Dashboard</a>
+                    <a className="nav-link link hover-2" href="/dashboard">Dashboard</a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/tutorial">Tutorial</a>
+                    <a className="nav-link link hover-2" href="/tutorial">Tutorial</a>
                   </li>
                 </ul>
 
@@ -61,6 +57,7 @@ function RootLayout({ children }) {
             integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
             crossOrigin="anonymous"
           ></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         </body>
       </html></>
   );

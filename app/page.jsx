@@ -1,5 +1,5 @@
 "use client"
-import './globals.css'
+
 import React from 'react'
 import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
@@ -14,18 +14,23 @@ import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
 import Market from '../artifacts/contracts/NFTmarket.sol/NFTmarket.json'
 
 let rpcEndpoint = null
+// below for Mumbai test network
+rpcEndpoint = `https://polygon-mumbai.infura.io/v3/${process.env.NEXT_PUBLIC_POLYGON_API_KEY}`
 
 if (process.env.NEXT_PUBLIC_WORKSPACE_URL) {
   rpcEndpoint = process.env.NEXT_PUBLIC_WORKSPACE_URL
 }
 
 export default function Home() {
+  
 
   /**The 'Home' component maintains state using the 'nfts' and 'loadingState' variables.
    * The 'nfts' state holds an array of NFT objects, while 'loadingState' tracks the
    *  loading status of the NFTs. */
   const [nfts, setNfts] = useState([])
   const [loadingState, setLoadingState] = useState('not-loaded')
+  const [buttonStates, setButtonStates] = useState([])
+  const [loadingItems, setLoadingItems] = useState([]) // Track loading state for each NFT item
 
   //The 'useEffect' hook is used to load the NFTs when the component mounts. 
   useEffect(() => {
@@ -66,10 +71,18 @@ export default function Home() {
     /**The resulting array of items is stored in the nfts state variable, and the loadingState is set to 'loaded'. */
     setNfts(items)
     setLoadingState('loaded') 
+    setButtonStates(Array(items.length).fill(false));
   }
 
   /**The buyNft function is an asynchronous function responsible for buying an NFT from the marketplace.*/
-  async function buyNft(nft) {
+  async function buyNft(nft, index) {
+    setLoadingItems((prevLoadingItems) => [...prevLoadingItems, index]) // Update loading state for the item
+    setButtonStates((prevButtonStates) => {
+      const newButtonStates = [...prevButtonStates];
+      newButtonStates[index] = true; // Disable the button
+      return newButtonStates;
+    });
+
 
     //It creates an instance of Web3Modal and prompts the user to connect to their Ethereum wallet.
     const web3Modal = new Web3Modal()
@@ -85,6 +98,7 @@ export default function Home() {
     //The price of the NFT is parsed from a string to a BigNumber using ethers.utils.parseUnits.
     const price = ethers.utils.parseUnits(nft.price.toString(), 'ether')
     
+    try{
     //The createMarketSale function is called on the contract to execute the transaction and buy the NFT.
     const transaction = await contract.createMarketSale(nftaddress, nft.itemId, {
       value: price
@@ -93,7 +107,18 @@ export default function Home() {
     // After the transaction is successfully completed, the loadNFTs function is called to refresh the list of NFTs.
     await transaction.wait()
     loadNFTs()
+  }catch (error){
+    console.error('Error buying NFT:', error)
+    setButtonStates((prevButtonStates) => {
+      const newButtonStates = [...prevButtonStates];
+      newButtonStates[index] = false; // Enable the button
+      return newButtonStates;
+    })
+    setLoadingItems((prevLoadingItems) => prevLoadingItems.filter((_, idx) => idx !== index));
+  } finally {
+    setLoadingItems((prevLoadingItems) => prevLoadingItems.filter((_, idx) => idx !== index)) // Remove item from loading state
   }
+}
 
   //If the loadingState is 'loaded' and there are no items in the nfts array...
   if (loadingState === 'loaded' && !nfts.length)
@@ -104,15 +129,15 @@ export default function Home() {
             <div className="top">
               <div className="main-txt">
                 <h1>Zenith</h1>
-                <h4>An NFT Marketplace</h4>
+                <h3>An NFT Marketplace</h3>
               </div>
             </div>
           </div>
         </section>
-        <h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>
+        <h3 className="px-20 py-10 text-3xl">No items in marketplace</h3>
       </>
     );
-  
+
   return (
     <>
       <section id="heroe">
@@ -127,18 +152,27 @@ export default function Home() {
       </section>
 
       <section id="gallery">
-        <div className="container">
-          <div className="row">
+        <div className="container" style={{margin: 50,}}>
+          <div className="row row-cols-auto">
             {
               nfts.map((nft, i) => (
-                <div key={i} className="col-4">
+                <div key={i} className="col">
                   <div className="card" style={{ width: '18rem' }}>
+                    <div className='img-holder'>
                     <img src={nft.image} className="card-img-top" alt="..." />
+                    </div>
                     <div className="card-body">
                       <h5 className="card-title">{nft.name}</h5>
                       <p className="card-text">{nft.description}</p>
-                      <p className="card-text">{nft.price}</p>
-                      <button type="button" className="btn btn-dark" onClick={() => buyNft(nft)}>Buy</button>
+                      <p className="card-text">{nft.price} ETH</p>
+                      <button
+                      type="button"
+                      className="btn btn-dark"
+                      disabled={buttonStates[i]} // Disable the button if it's already loading or user is the owner
+                      onClick={() => buyNft(nft, i)}
+                    >
+                      {buttonStates[i] ? 'Loading...' : 'Buy'}
+                    </button>
                     </div>
                   </div>                  
                 </div>

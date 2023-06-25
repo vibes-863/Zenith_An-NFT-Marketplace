@@ -11,14 +11,14 @@ contract NFT is ERC721URIStorage {
     /* The Counters library is used to create a counter variable, _tokenIds. This variable will be used to provide a 
     unique identifier for each token.*/
     using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
+    Counters.Counter public _tokenIds;
     
     // The variable 'contractAddress' is an address of the marketplace that we want the NFT to be able to interact with.
     address contractAddress;
     
     /* The constructor initializes the 'contractAddress' variable with the address of the Marketplace. Note: as the 
     address of the marketplace is needed, we will first deploy the NFTMarketplace contract and then this contract*/
-    constructor(address marketplaceAddress) ERC721("Zenith Tokens", "METT"){
+    constructor(address marketplaceAddress) ERC721("Zenith Tokens", "ZET"){
         contractAddress = marketplaceAddress;
     }
 
