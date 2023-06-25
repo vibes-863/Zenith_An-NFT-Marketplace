@@ -12,7 +12,7 @@
 ### 1. Getting the project files
 1. Download and extract the project files from the zip file give here https://drive.google.com/drive/folders/1sqxhblc4vwuMWal2svYXz-oX3OAw-a0G?usp=sharing
 
-### 3. Adding .env.local file
+### 2. Adding .env.local file
 As we have not deployed the file yet, you will still need the environment variables without which the web application wont load. Hence carry out the following steps:
   1. In the root of the project files directory, create a file called '.env.local'
   2. Open the file in your code editor and add the following lines:
@@ -30,7 +30,7 @@ As we have not deployed the file yet, you will still need the environment variab
       ```
   3. Now save the file.
 
-### 2. Running the Development Server
+### 3. Running the Development Server
 - We have already deployed our Smart Contracts into the Polygon Mumbai Testnet so all you will have to do is run the development server.
 - Before doing this, you will have to install the dependencies to do this:
     1. Navigate into the project folder by typing the following command
@@ -47,7 +47,7 @@ As we have not deployed the file yet, you will still need the environment variab
   ```
   Open http://localhost:3000 with your browser to see the result.
 
-### 3. Adding custom network into MetaMask
+### 4. Adding custom network into MetaMask
 - The Polygon Mumbai Testnet does not come by default as a network in the MetaMask wallet, thus we will have to add it as a cutom network.
 - Head over to https://support.metamask.io/hc/en-us/articles/360043227612-How-to-add-a-custom-network-RPC to see the steps to add a custom network. For the details enter the following:
   - Network name: Mumbai
@@ -56,7 +56,7 @@ As we have not deployed the file yet, you will still need the environment variab
   - Currency symbol: MATIC
 - After adding the network, make sure to switch to the nework you just added (Mumbai).
 
-### 4. Getting Test MATIC
+### 5. Getting Test MATIC
 - Now that you have the Development Server up and running, as well as the MetaMask wallet setup, you are almost ready to start testing the marketplace. You will now need to get some Test MATIC in order to conduct transactions. In order to do so follow the steps below:
   1. Go to https://mumbaifaucet.com/
   2. Copy the address of your account and paste it into the 'Enter Your Wallet Address (0x...)' field. 
@@ -68,7 +68,7 @@ Note: The site limits to only providing 0.5 MATIC per day to an ip address, henc
 
 With that you have completed all the steps to setup Zenith's Development Environment. You can now test and conduct transactions on Zenith.
 
-### 5. (Optional) Deploying the Smart Contracts on local network
+### 6. (Optional) Deploying the Smart Contracts on local network
 WARNING: The local network is not as optimized as the Polygon Mumbai Testnet and so you would face some errors ,for example, related to gas optimization. So if something does not work, make sure to open console log on the browser. You might have to restart the whole process below if there is an error related to gas optimization. If there is an error resulting in transaction failed due to nonce difference, then try using a different acccount.
 
 It is recommended to watch our project video before continuing.
