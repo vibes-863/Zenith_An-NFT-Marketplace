@@ -50,6 +50,37 @@ Note: The site limits to only providing 0.5 MATIC per day to an ip address, henc
 
 With that you have completed all the steps to setup Zenith's Development Environment. You can now test and conduct transactions on Zenith.
 
+### 5. (Optional) Deploying the Smart Contracts on local network
+WARNING: The local network is not as optimized as the Polygon Mumbai Testnet and so you would face some errors ,for example, related to gas optimization. So if something does not work, make sure to open console log on the browser. You might have to restart the whole process below if there is an error related to gas optimization. If there is an error resulting in transaction failed due to nonce difference, then try using a different acccount.
+
+It is recommended to watch our project video before continuing.
+
+Follow the following steps to run your own blockchain network:
+1. In a terminal within the project files directory and run the command
+    ```
+    npx harhat node
+    ```
+    Wait for the command to run and the node to start
+2. When you scroll up, you will see that 20 accounts have been created for you to use. All these 20 accounts will have 10000ETH each (plenty!). Pay close attention to the warning provided at the end.
+3. Copy the private key of any of the 19 accounts (excluding the first account as it is used to deploy the Smart Contracts later) and import the account into your MetaMask wallet by following the steps given here https://support.metamask.io/hc/en-us/articles/360015489331-How-to-import-an-account#:~:text=From%20your%20homepage%2C%20tap%20on,supported%20by%20the%20other%20wallet.
+     - Note: Sometimes transactions will fail by giving the error relater to nonce data. If this happens, import another account and try using that.
+5. Now lets deploy the contracts. Open another new terminal within the project files directory and run the command
+    ```
+    npx hardhat run scripts/deploy.js --network localhost
+    ```
+    This will now deploy the Smart Contracts into your local network
+6. Now you will need to edit some files so that the development server will fetch data from the right network.
+     1. In ./config.js, comment lines 2 & 3, and uncomment line 6 & 7
+     2. In ./app/page.jsx, comment line 18
+     3. Save both the files.
+7. Now you can run the Development Server
+    ```
+    npm run dev
+    ```
+    Open http://localhost:3000 with your browser to see the result. Remember to always connect to the imported account before conducting any transactions.
+
+With that, you have now run the Development Server with the Smart Contracts deployed on your local blockchain network.    
+
 ## Running the Automated System Testing of Smart Contracts
 To ensure comprehensive testing of the smart contract, we have developed an extensive testing suite containing numerous test cases. We utilized the Waffle testing framework, which is provided by hardhat, to facilitate the testing process. Additionally, we incorporated the Chai Assertion Library to enhance the readability and effectiveness of our tests. 
 
