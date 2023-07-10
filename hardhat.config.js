@@ -1,7 +1,5 @@
 require("@nomiclabs/hardhat-waffle");
-const fs = require("fs")
-const privateKey = fs.readFileSync(".secret").toString()
-const apiKey = "1c04d8dd403749a4b007a8fef3e15142";
+require("dotenv").config({ path: __dirname + "/.env.local" });
 
 module.exports = {
   defaultNetwork: "hardhat",
@@ -12,15 +10,21 @@ module.exports = {
 
     mumbai: {
       // Infura
-      url: `https://polygon-mumbai.infura.io/v3/${apiKey}`,
-      accounts: [privateKey],
+      url: `https://polygon-mumbai.infura.io/v3/${process.env.NEXT_PUBLIC_POLYGON_API_KEY}`,
+      accounts: [process.env.DEPLOYER_PRIVATE_KEY],
     },
     matic: {
       // Infura
-      url: `https://polygon-mainnet.infura.io/v3/${apiKey}`,
-      accounts: [privateKey],
+      url: `https://polygon-mainnet.infura.io/v3/${process.env.NEXT_PUBLIC_POLYGON_API_KEY}`,
+      accounts: [process.env.DEPLOYER_PRIVATE_KEY],
     },
   },
 
   solidity: "0.8.18",
+  paths: {
+    artifacts: "./artifacts",
+    sources: "./contracts",
+    cache: "./cache",
+    tests: "./test",
+  },
 };

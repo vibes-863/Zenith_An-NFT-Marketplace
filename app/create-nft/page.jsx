@@ -1,14 +1,13 @@
 "use client"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
 import { create as ipfsHttpClient } from 'ipfs-http-client'
 import { useRouter } from 'next/navigation'
 import Web3Modal from 'web3modal'
+import $ from 'jquery';
 
 // This will be used to store the NFTs data
-const projectId = '2ROCNYP2qlyoOUHTSOm9TemPeNL';
-const projectSecret = '3cb19c85765a4bff1fdd54d862536eae';
-const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+const auth = 'Basic ' + Buffer.from(process.env.NEXT_PUBLIC_IPFS_API_KEY + ':' + process.env.NEXT_PUBLIC_IPFS_API_SECRET_KEY).toString('base64');
 const client = ipfsHttpClient({
   host: 'ipfs.infura.io',
   port: 5001,
@@ -26,19 +25,28 @@ import {
 import NFT from "../../artifacts/contracts/NFT.sol/NFT.json";
 import Market from "../../artifacts/contracts/NFTmarket.sol/NFTmarket.json";
 
-export default function CreateNFT() {   
+export default function CreateNFT() {
     /** fileUrl would be the url for the file that the user can upload to the IPFS
      *  the formInput will allow the user to input the price, name, and description of the NFT
      */
     const [fileUrl, setFileUrl] = useState(null)
     const [formInput, updateFormInput] = useState({ price: '', name: '', description: '' })
+   
+    const [loading, setLoading] = useState(false);
+
     const router = useRouter()
+
+    useEffect(() => {
+        // Enable or disable the create button based on input validity
+        const createButton = document.getElementById('CreateButton');
+        createButton.disabled = !(formInput.name && formInput.description && formInput.price && fileUrl);
+      }, [formInput, fileUrl]);
 
     // The onChange function will be used to create and update the file url. The function will be invoked with an event 'e'
     async function onChange(e) {
         // the array will only contain one item, and so we take the first item
         const file = e.target.files[0]
-        
+
         try {
             // we wait for the file to get uploaded.
             const added = await client.add(
@@ -62,7 +70,7 @@ export default function CreateNFT() {
         const { name, description, price } = formInput
         // we then check to see if all the required values have been entered.
         if (!name || !description || !price || !fileUrl) return
-        
+
         // We then stringify the name, description, and image into a variable called data
         const data = JSON.stringify({
             name, description, image: fileUrl
@@ -70,12 +78,15 @@ export default function CreateNFT() {
 
         // we then save the data to ipfs using try and catch.
         try {
-            const added = await client.add(data)
-            const url = `https://zenith.infura-ipfs.io/ipfs/${added.path}`
+            const added = await client.add(data);
+            const url = `https://zenith.infura-ipfs.io/ipfs/${added.path}`;
             // adter file is uploaded to IPFS, pass the URL to save it on the blockchain network
-            createSale(url)
+            await createSale(url);
+            setLoading(false); 
+            resetForm();
         } catch (error) {
             console.log('Error uploading file: ', error)
+            setLoading(false);
         }
     }
 
@@ -83,6 +94,8 @@ export default function CreateNFT() {
     /**  the following function lists the NFT on Zenith by saving it onto the blockchain network.
     * It dpes this by making the owner of the NFT, Zenith */
     async function createSale(url) {
+        setLoading(true);
+
         //It creates an instance of Web3Modal and prompts the user to connect to their Ethereum wallet.
         const web3Modal = new Web3Modal()
         const connection = await web3Modal.connect()
@@ -107,7 +120,7 @@ export default function CreateNFT() {
 
         // An instance of the marketplace contract is created using the nftmarketaddress, ABI, and signer.
         contract = new ethers.Contract(nftmarketaddress, Market.abi, signer)
-    
+
         // We get the listing price and then turn that listing price into a string.
         let listingPrice = await contract.getListingPrice()
         listingPrice = listingPrice.toString()
@@ -116,12 +129,18 @@ export default function CreateNFT() {
         transaction = await contract.createMarketItem(nftaddress, tokenId, price, { value: listingPrice }
         )
         await transaction.wait()
-
+        
         // We then reroute the user to the home page.
         router.push('/')
 
     }
 
+    function resetForm() {
+        updateFormInput({ price: '', name: '', description: '' });
+        setFileUrl(null);
+      }
+
+    // $("#CreateButton").one("click", createNFT);
     return (
         <div className="container">
             <div className="mb-3">
@@ -129,6 +148,7 @@ export default function CreateNFT() {
                     className="form-control"
                     id="exampleFormControlInput1"
                     placeholder="Asset Name"
+                    value={formInput.name}
                     onChange={(e) =>
                     updateFormInput({ ...formInput, name: e.target.value })
                     }
@@ -141,6 +161,7 @@ export default function CreateNFT() {
                     id="exampleFormControlTextarea1"
                     rows="3"
                     placeholder="Asset Description"
+                    value={formInput.description}
                     onChange={(e) =>
                     updateFormInput({ ...formInput, description: e.target.value })
                     }
@@ -149,9 +170,11 @@ export default function CreateNFT() {
 
             <div className="mb-3">
                 <input
+                    type='number'
                     className="form-control"
                     id="exampleFormControlInput1"
                     placeholder="Asset Price in Matic"
+                    value={formInput.price}
                     onChange={(e) =>
                     updateFormInput({ ...formInput, price: e.target.value })
                     }
@@ -163,14 +186,15 @@ export default function CreateNFT() {
             </div>
 
             {
-                fileUrl && ( 
+                fileUrl && (
                     <img className="rounded mt-4" width="350" src={fileUrl} />
                 )
             }
-            
-            <button className="btn btn-dark" onClick={createNFT}>
-            Create Digital Asset
+
+            <button className="btn btn-dark" style={{display:'block'}} id='CreateButton'  disabled={loading} onClick={createNFT}>
+            {loading ? 'Creating...' : 'Create Digital Asset'}
             </button>
         </div>
     );
 }
+
