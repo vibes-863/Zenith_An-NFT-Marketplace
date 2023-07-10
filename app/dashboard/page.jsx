@@ -83,7 +83,7 @@ export default function Dashboard() {
                                 <div key={i} className="col">
                                     <div className="card" style={{ width: '18rem' }}>
                                     <div className='img-holder'>
-                                        <img src={nft.image} className="card-img-top" alt="..." />
+                                        <img src={nft.image} className="card-img-top" alt="NFT image" />
                                         </div><div className="card-body">
                                         <h5 className="card-title">{nft.name}</h5>
                                             <p className="card-text">{nft.description}</p>
@@ -109,7 +109,7 @@ export default function Dashboard() {
                                             <div key={i} className="col">
                                                 <div className="card" style={{ width: '18rem' }}>
                                                     <div className='img-holder'>
-                                                        <img src={nft.image} className="card-img-top" alt="..." />
+                                                        <img src={nft.image} className="card-img-top" alt="NFT image" />
                                                     </div>
                                                     <div className="card-body">
                                                         <h5 className="card-title">{nft.name}</h5>
