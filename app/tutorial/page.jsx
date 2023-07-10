@@ -55,9 +55,9 @@ export default function tutorial(){
       ledger that records transactions securely and transparently. This means that the ownership and history of an NFT
       can be verified and traced back to its original creator.</p>
     <p className='slide-up' style={{marginBottom: 60,}}>One of the key features of NFTs is that they allow creators and artists to monetize their digital works directly,
-      without relying on traditional intermediaries like galleries, publishers, or record labels. When someone purchases
+      without relying on traditional intermediaries like galleries, publishers, orcrossorigin record labels. When someone purchases
       an NFT, they gain ownership of that specific digital item, and the ownership record is stored on the blockchain.
-      The value and desirability of an NFT can vary based on factors like the creator's reputation, scarcity, historical
+      The value and desirability of an NFT can vary based on factors like the creator&apos;s reputation, scarcity, historical
       significance, or the demand from collectors. Some NFTs have sold for significant amounts of money, capturing
       headlines in the media.</p>
   </div>
@@ -74,7 +74,7 @@ export default function tutorial(){
     <p className='slide-up'>An NFT marketplace is an online platform or website where users can buy, sell, and trade non-fungible tokens
       (NFTs). These marketplaces serve as digital marketplaces specifically designed for the exchange of unique digital
       assets.</p>
-    <p className='slide-up'>Here's how an NFT marketplace typically functions:</p>
+    <p className='slide-up'>Here&apos;s how an NFT marketplace typically functions:</p>
     <ol style={{fontSize: 20}}>
       <li className='slide-up'>
         <p>Listing and Discovery: Artists or creators upload their NFTs to the marketplace, providing details about the
@@ -93,7 +93,7 @@ export default function tutorial(){
           price as a royalty if the smart contract is programmed to include that feature.</p>
       </li>
       <li className='slide-up'>
-        <p>Wallet Integration: NFT marketplaces typically integrate with digital wallets that store the user's NFTs and
+        <p>Wallet Integration: NFT marketplaces typically integrate with digital wallets that store the user&apos;s NFTs and
           cryptocurrency. This integration allows users to connect their wallets to the marketplace, view their owned
           NFTs, and facilitate transactions directly from their wallets.</p>
       </li>
@@ -149,8 +149,8 @@ export default function tutorial(){
               creator of the artwork or content.</p>
           </li>
           <li>
-            <p>NFTs derive value from their scarcity and uniqueness. Assess the rarity of the NFT you're interested in
-              by understanding edition sizes, whether it's part of a limited series, or if it has special attributes or
+            <p>NFTs derive value from their scarcity and uniqueness. Assess the rarity of the NFT you&apos;re interested in
+              by understanding edition sizes, whether it&apos;s part of a limited series, or if it has special attributes or
               features. Rarity can contribute to the long-term value of an NFT.</p>
           </li>
           <li>
@@ -183,7 +183,7 @@ export default function tutorial(){
           </li>
           <li>
             <p>Determine your investment budget and allocate funds accordingly. NFT investing can involve high
-              volatility and risks, so it's crucial to set clear financial boundaries and be prepared for potential
+              volatility and risks, so it&apos;s crucial to set clear financial boundaries and be prepared for potential
               losses. Avoid investing more than you can afford to lose.</p>
           </li>
           <li>
@@ -216,7 +216,7 @@ export default function tutorial(){
     <h2 style={{ display:"inline", fontSize:"60px", }}>Creating a Metamask Wallet</h2>
     <a href="https://metamask.io/" type="button" className="btn btn-outline-warning" style={{position: 'absolute',
     right: 150,
-    top: 65,}} ><img src="/meta.png" style={{ width:"25px", }}/> Metamask
+    top: 65,}} ><img alt="Metamask Icon" src="/meta.png" style={{ width:"25px", }}/> Metamask
     </a>
     <ol style={{fontSize: 20}}>
       <li className='slide-up'>
@@ -237,7 +237,7 @@ export default function tutorial(){
       </li>
       <li className='slide-up'>
         <p>Verify the authenticity of transactions: Before confirming any transactions through MetaMask, review the
-          details carefully. Check the recipient address, the amount being sent, and any associated fees. It's crucial
+          details carefully. Check the recipient address, the amount being sent, and any associated fees. It&apos;s crucial
           to verify the accuracy of the transaction before proceeding to prevent accidental or fraudulent transfers.</p>
       </li>
       <li className='slide-up'>
@@ -253,7 +253,7 @@ export default function tutorial(){
       </li>
       <li className='slide-up'>
         <p>Utilize network options: MetaMask supports different blockchain networks. Make sure you are connected to the
-          appropriate network for your intended actions. For example, if you're interacting with Ethereum-based NFTs,
+          appropriate network for your intended actions. For example, if you&apos;re interacting with Ethereum-based NFTs,
           ensure you are connected to the Ethereum Mainnet or the appropriate testnet for experimentation</p>
       </li>
     </ol>
@@ -261,14 +261,14 @@ export default function tutorial(){
   </div>
   <Script/>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" async ></script>
 
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" async ></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossOrigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="./script.js"></script>
+    crossOrigin="anonymous" async ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" async ></script>
+  <script src="./script.js" async ></script>
 
 </>
     )

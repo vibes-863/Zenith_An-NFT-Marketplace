@@ -4,7 +4,6 @@ import { ethers } from 'ethers'
 import { create as ipfsHttpClient } from 'ipfs-http-client'
 import { useRouter } from 'next/navigation'
 import Web3Modal from 'web3modal'
-import $ from 'jquery';
 
 // This will be used to store the NFTs data
 const auth = 'Basic ' + Buffer.from(process.env.NEXT_PUBLIC_IPFS_API_KEY + ':' + process.env.NEXT_PUBLIC_IPFS_API_SECRET_KEY).toString('base64');
@@ -187,7 +186,7 @@ export default function CreateNFT() {
 
             {
                 fileUrl && (
-                    <img className="rounded mt-4" width="350" src={fileUrl} />
+                    <img className="rounded mt-4" width="350" src={fileUrl} alt="Preview not available" />
                 )
             }
 

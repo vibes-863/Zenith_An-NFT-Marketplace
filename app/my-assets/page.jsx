@@ -87,7 +87,7 @@ export default function MyAssets() {
                                 <div key={i} className="col">
                                     <div className="card" style={{ width: '18rem' }}>
                                         <div className='img-holder'>
-                                            <img src={nft.image} className="card-img-top" alt="..." />
+                                            <img src={nft.image} className="card-img-top" alt="NFT image" />
                                         </div>
                                         <div className="card-body">
                                             <p className="card-text">Price - {nft.price} ETH</p>
