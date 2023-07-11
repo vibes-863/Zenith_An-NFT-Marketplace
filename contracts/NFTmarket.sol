@@ -201,4 +201,12 @@ contract NFTmarket is ReentrancyGuard{
     return items; // Returning the array of items created by the caller
   }
 
+  function fetchNFT(uint256 tokenId) public view returns (MarketItem memory) {
+        for (uint i = 0; i < _itemIds.current(); i++) {
+            if (idToMarketItem[i + 1].tokenId == tokenId) {
+                return idToMarketItem[i + 1];
+            }
+        }
+        revert("NFT not found");
+    }
 }

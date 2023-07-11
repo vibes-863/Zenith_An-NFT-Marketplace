@@ -74,51 +74,7 @@ export default function Home() {
     setButtonStates(Array(items.length).fill(false));
   }
 
-  /**The buyNft function is an asynchronous function responsible for buying an NFT from the marketplace.*/
-  async function buyNft(nft, index) {
-    setLoadingItems((prevLoadingItems) => [...prevLoadingItems, index]) // Update loading state for the item
-    setButtonStates((prevButtonStates) => {
-      const newButtonStates = [...prevButtonStates];
-      newButtonStates[index] = true; // Disable the button
-      return newButtonStates;
-    });
 
-
-    //It creates an instance of Web3Modal and prompts the user to connect to their Ethereum wallet.
-    const web3Modal = new Web3Modal()
-    const connection = await web3Modal.connect()
-
-    //It then creates a Web3Provider using the established connection and obtains the signer (account) for executing transactions.
-    const provider = new ethers.providers.Web3Provider(connection)
-    const signer = provider.getSigner()
-
-    //An instance of the marketplace contract is created using the nftmarketaddress, ABI, and signer.
-    const contract = new ethers.Contract(nftmarketaddress, Market.abi, signer)
-
-    //The price of the NFT is parsed from a string to a BigNumber using ethers.utils.parseUnits.
-    const price = ethers.utils.parseUnits(nft.price.toString(), 'ether')
-    
-    try{
-    //The createMarketSale function is called on the contract to execute the transaction and buy the NFT.
-    const transaction = await contract.createMarketSale(nftaddress, nft.itemId, {
-      value: price
-    })
-
-    // After the transaction is successfully completed, the loadNFTs function is called to refresh the list of NFTs.
-    await transaction.wait()
-    loadNFTs()
-  }catch (error){
-    console.error('Error buying NFT:', error)
-    setButtonStates((prevButtonStates) => {
-      const newButtonStates = [...prevButtonStates];
-      newButtonStates[index] = false; // Enable the button
-      return newButtonStates;
-    })
-    setLoadingItems((prevLoadingItems) => prevLoadingItems.filter((_, idx) => idx !== index));
-  } finally {
-    setLoadingItems((prevLoadingItems) => prevLoadingItems.filter((_, idx) => idx !== index)) // Remove item from loading state
-  }
-}
 
   //If the loadingState is 'loaded' and there are no items in the nfts array...
   if (loadingState === 'loaded' && !nfts.length)
@@ -169,7 +125,7 @@ export default function Home() {
                       type="button"
                       className="btn btn-dark"
                       disabled={buttonStates[i]} // Disable the button if it's already loading or user is the owner
-                      onClick={() => buyNft(nft, i)}
+                      href={`/${i.tokenId}.js`}
                     >
                       {buttonStates[i] ? 'Loading...' : 'Buy'}
                     </button>
