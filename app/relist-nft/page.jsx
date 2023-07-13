@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Web3Modal from "web3modal"
 import { useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 
 import {
   nftaddress, nftmarketaddress
@@ -16,9 +17,11 @@ export default function RelistNFT() {
     // A formInput state variable is declared with two properites: price, and image.
     const [formInput, updateFormInput] = useState({ price: '', image: '' })
     const router = useRouter()
+    const searchParams = useSearchParams()
 
     // The 'id' and 'tokenUri' is extracted from the 'query' property of the router object using object destructuring.
-    const { id, tokenUri } = router.query
+    const id = searchParams.get('id')
+    const tokenUri = searchParams.get('tokenUri')
     // The 'image' and 'price' is extracted from the formInput uing object destructuring.
     const { image, price } = formInput
 
