@@ -5,7 +5,7 @@ import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Web3Modal from "web3modal"
-
+import Link from 'next/link'
 import {
   nftaddress, nftmarketaddress
 } from '../config'
@@ -57,7 +57,9 @@ export default function Home() {
       const tokenUri = await tokenContract.tokenURI(i.tokenId)
       const meta = await axios.get(tokenUri)
       let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
+      
       let item = {
+        tokenId: i.tokenId.toString(),
         price,
         itemId: i.itemId.toNumber(),
         seller: i.seller,
@@ -121,14 +123,11 @@ export default function Home() {
                       <h5 className="card-title">{nft.name}</h5>
                       <p className="card-text">{nft.description}</p>
                       <p className="card-text">{nft.price} ETH</p>
-                      <button
-                      type="button"
-                      className="btn btn-dark"
-                      disabled={buttonStates[i]} // Disable the button if it's already loading or user is the owner
-                      href={`/${i.tokenId}.js`}
-                    >
-                      {buttonStates[i] ? 'Loading...' : 'Buy'}
-                    </button>
+                      
+                <a href={`/${nft.tokenId}`} className="btn btn-dark" disabled={buttonStates[i]}>
+                  {buttonStates[i] ? 'Loading...' : 'Buy'}
+                </a>
+             
                     </div>
                   </div>                  
                 </div>
