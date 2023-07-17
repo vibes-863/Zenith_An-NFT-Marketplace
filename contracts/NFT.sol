@@ -34,4 +34,11 @@ contract NFT is ERC721URIStorage {
         return newItemId; // For frontend use
     }
     
+    function transferToken(address from, address to, uint256 tokenId) external {
+        require(ownerOf(tokenId) == from, "From address must be token owner");
+        _transfer(from, to, tokenId);
+    }
+
+    receive() external payable {} // to support receiving ETH by default
+    fallback() external payable {}
 }

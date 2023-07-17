@@ -58,14 +58,14 @@ export default function RelistNFT() {
         const priceFormatted = ethers.utils.parseUnits(formInput.price, 'ether')
 
         // An instance of the marketplace contract is created using the nftmarketaddress, ABI, and signer.
-        contract = new ethers.Contract(nftmarketaddress, Market.abi, signer)
+        let contract = new ethers.Contract(nftmarketaddress, Market.abi, signer)
     
         // We get the listing price and then turn that listing price into a string.
         let listingPrice = await contract.getListingPrice()
         listingPrice = listingPrice.toString()
 
          // We then wait for the NFT to be listed into the marketplace
-        transaction = await contract.relistToken(id, priceFormatted, { value: listingPrice })
+        let transaction = await contract.relistToken(nftaddress, id, priceFormatted, { value: listingPrice })
         await transaction.wait()
 
         // We then reroute the user to the home page.

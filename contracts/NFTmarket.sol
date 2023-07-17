@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 import "hardhat/console.sol";
+import "./NFT.sol";
 
 // The 'NFTMarket' contract is defined and it inherits from the 'ReentrancyGuard' contract.
 contract NFTmarket is ReentrancyGuard{
@@ -54,6 +55,18 @@ contract NFTmarket is ReentrancyGuard{
       uint256 price,
       bool sold
     );
+
+    event ProductListed(
+        uint256 indexed itemId
+    );
+
+    modifier onlyItemOwner(uint256 id) {
+        require(
+            idToMarketItem[id].owner == msg.sender,
+            "Only product owner can do this operation"
+        );
+        _;
+    }
 
     /* Returns the listing price of the contract */
     function getListingPrice() public view returns (uint256) {
@@ -201,4 +214,33 @@ contract NFTmarket is ReentrancyGuard{
     return items; // Returning the array of items created by the caller
   }
 
+  function relistToken(address payable nftContract, uint256 itemId, uint256 newPrice)
+        public
+        payable
+        nonReentrant
+        onlyItemOwner(itemId)
+    {
+        uint256 tokenId = idToMarketItem[itemId].tokenId;
+        require(newPrice > 0, "Price must be at least 1 wei");
+        require(
+            msg.value == listingPrice,
+            "Price must be equal to listing price"
+        );
+        //instantiate a NFT contract object with the matching type
+        NFT tokenContract = NFT(nftContract);
+        //call the custom transfer token method   
+        tokenContract.transferToken(msg.sender, address(this), tokenId);
+
+        //address oldOwner = idToMarketItem[itemId].owner;
+        idToMarketItem[itemId].owner = payable(address(0));
+        idToMarketItem[itemId].seller = payable(msg.sender);
+        idToMarketItem[itemId].price = newPrice;
+        idToMarketItem[itemId].sold = false;
+        _itemsSold.decrement();
+
+        emit ProductListed(itemId);
+    }
+
+  receive() external payable {} // to support receiving ETH by default
+  fallback() external payable {}
 }
