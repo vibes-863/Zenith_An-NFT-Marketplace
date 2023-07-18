@@ -4,8 +4,6 @@ import React from 'react'
 import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import Web3Modal from "web3modal"
-import Link from 'next/link'
 import {
   nftaddress, nftmarketaddress
 } from '../config'
@@ -30,7 +28,6 @@ export default function Home() {
   const [nfts, setNfts] = useState([])
   const [loadingState, setLoadingState] = useState('not-loaded')
   const [buttonStates, setButtonStates] = useState([])
-  const [loadingItems, setLoadingItems] = useState([]) // Track loading state for each NFT item
 
   //The 'useEffect' hook is used to load the NFTs when the component mounts. 
   useEffect(() => {

@@ -250,6 +250,13 @@ contract NFTmarket is ReentrancyGuard {
         emit ProductListed(itemId);
     }
 
+    // Function to fetch a single NFT's details
+    function fetchNFTDetails(
+        uint256 Id
+    ) public view returns (MarketItem memory) {
+        return idToMarketItem[Id];
+    }
+
     // The receive function is executed on a call to the contract with empty calldata. This is the function that is executed on plain Ether transfers.
     receive() external payable {} // to support receiving ETH by default
 
