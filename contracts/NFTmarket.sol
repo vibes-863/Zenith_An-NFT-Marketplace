@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 import "hardhat/console.sol";
-import "./NFT.sol";
+import "./NFT.sol"; // dont know why red squiggly line, although it works
 
 // The 'NFTMarket' contract is defined and it inherits from the 'ReentrancyGuard' contract.
 contract NFTmarket is ReentrancyGuard {
