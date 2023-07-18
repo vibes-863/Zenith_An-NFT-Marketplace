@@ -143,7 +143,8 @@ export default function CreateNFT() {
     return (
         
         <div className="container">
-            <header className='header'><h1 className='create-title'>Create New Item</h1></header>
+            <header className='header'><h1 className='create-title' style={{margin:'40px 0px 30px'}}>Create New Item</h1></header>
+            <h3 style={{fontFamily:'"Poppins", sans-serif', fontSize: 15, marginBottom: 20, fontWeight: 'bold'}}>Image</h3>
             <div class="image-input">
                 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" class="bi bi-image" viewBox="0 0 16 16">
                     <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
@@ -201,7 +202,7 @@ export default function CreateNFT() {
 
             
 
-            <button className="btn btn-dark" style={{ display: 'block' }} id='CreateButton' disabled={loading} onClick={createNFT}>
+            <button className="btn btn-dark" style={{ display: 'block',margin:'50px auto' }} id='CreateButton' disabled={loading} onClick={createNFT}>
                 {loading ? 'Creating...' : 'Create Digital Asset'}
             </button>
         </div>

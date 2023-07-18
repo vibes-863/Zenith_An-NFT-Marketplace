@@ -338,6 +338,7 @@ p {
   cursor: pointer;
   overflow: hidden;
   border-radius: 20px;
+  margin-bottom: 30px;
 }
 
 .image-input:hover {
@@ -370,7 +371,7 @@ p {
   line-height: 110%;
   margin-bottom: 16px;
   font-weight: 600;
-  font-size: 40px;
+  font-size: 55px;
   letter-spacing: 0px;
   color: rgb(18, 18, 18);
 }
