@@ -8,10 +8,10 @@ import Web3Modal from 'web3modal'
 // This will be used to store the NFTs data
 const auth = 'Basic ' + Buffer.from(process.env.NEXT_PUBLIC_IPFS_API_KEY + ':' + process.env.NEXT_PUBLIC_IPFS_API_SECRET_KEY).toString('base64');
 const client = ipfsHttpClient({
-  host: 'ipfs.infura.io',
-  port: 5001,
-  protocol: 'https',
-  apiPath: '/api/v0',
+    host: 'ipfs.infura.io',
+    port: 5001,
+    protocol: 'https',
+    apiPath: '/api/v0',
     headers: {
         authorization: auth,
     }
@@ -30,7 +30,7 @@ export default function CreateNFT() {
      */
     const [fileUrl, setFileUrl] = useState(null)
     const [formInput, updateFormInput] = useState({ price: '', name: '', description: '' })
-   
+
     const [loading, setLoading] = useState(false);
 
     const router = useRouter()
@@ -39,7 +39,7 @@ export default function CreateNFT() {
         // Enable or disable the create button based on input validity
         const createButton = document.getElementById('CreateButton');
         createButton.disabled = !(formInput.name && formInput.description && formInput.price && fileUrl);
-      }, [formInput, fileUrl]);
+    }, [formInput, fileUrl]);
 
     // The onChange function will be used to create and update the file url. The function will be invoked with an event 'e'
     async function onChange(e) {
@@ -81,7 +81,7 @@ export default function CreateNFT() {
             const url = `https://zenith.infura-ipfs.io/ipfs/${added.path}`;
             // adter file is uploaded to IPFS, pass the URL to save it on the blockchain network
             await createSale(url);
-            setLoading(false); 
+            setLoading(false);
             resetForm();
         } catch (error) {
             console.log('Error uploading file: ', error)
@@ -128,7 +128,7 @@ export default function CreateNFT() {
         transaction = await contract.createMarketItem(nftaddress, tokenId, price, { value: listingPrice }
         )
         await transaction.wait()
-        
+
         // We then reroute the user to the home page.
         router.push('/')
 
@@ -137,11 +137,27 @@ export default function CreateNFT() {
     function resetForm() {
         updateFormInput({ price: '', name: '', description: '' });
         setFileUrl(null);
-      }
+    }
 
     // $("#CreateButton").one("click", createNFT);
     return (
+        
         <div className="container">
+            <header className='header'><h1 className='create-title'>Create New Item</h1></header>
+            <div class="image-input">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" class="bi bi-image" viewBox="0 0 16 16">
+                    <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                    <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
+                </svg>
+                <input type="file" onChange={onChange} />
+                {
+                fileUrl && (
+                    <img className="nft-img rounded mt-4" 
+                    style={{minHeight: 300, minWidth: 400}} src={fileUrl} alt="Preview not available" />
+                )
+            }
+            </div>
+
             <div className="mb-3">
                 <input
                     className="form-control"
@@ -149,7 +165,7 @@ export default function CreateNFT() {
                     placeholder="Asset Name"
                     value={formInput.name}
                     onChange={(e) =>
-                    updateFormInput({ ...formInput, name: e.target.value })
+                        updateFormInput({ ...formInput, name: e.target.value })
                     }
                 />
             </div>
@@ -162,7 +178,7 @@ export default function CreateNFT() {
                     placeholder="Asset Description"
                     value={formInput.description}
                     onChange={(e) =>
-                    updateFormInput({ ...formInput, description: e.target.value })
+                        updateFormInput({ ...formInput, description: e.target.value })
                     }
                 ></textarea>
             </div>
@@ -175,23 +191,18 @@ export default function CreateNFT() {
                     placeholder="Asset Price in Matic"
                     value={formInput.price}
                     onChange={(e) =>
-                    updateFormInput({ ...formInput, price: e.target.value })
+                        updateFormInput({ ...formInput, price: e.target.value })
                     }
                 />
             </div>
 
-            <div className="mb-3">
-                <input className="form-control" type="file" id="formFile" onChange={onChange}/>
-            </div>
+            
+            
 
-            {
-                fileUrl && (
-                    <img className="rounded mt-4" width="350" src={fileUrl} alt="Preview not available" />
-                )
-            }
+            
 
-            <button className="btn btn-dark" style={{display:'block'}} id='CreateButton'  disabled={loading} onClick={createNFT}>
-            {loading ? 'Creating...' : 'Create Digital Asset'}
+            <button className="btn btn-dark" style={{ display: 'block' }} id='CreateButton' disabled={loading} onClick={createNFT}>
+                {loading ? 'Creating...' : 'Create Digital Asset'}
             </button>
         </div>
     );
