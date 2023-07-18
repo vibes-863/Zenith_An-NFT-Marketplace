@@ -291,19 +291,30 @@ p {
 }
 
 .card{
-  height: 530px;
+  height: 395px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.card-text{
+  display: inline;
+    position: absolute;
+    margin-top: 0px;
+    top: 59px;
+    margin-bottom: 0px;
 }
 
 .img-holder{
   height: 265px;
   align-items: center;
   display: flex;
+  overflow: hidden;
+  border-radius: 5px;
+  justify-content: center;
 }
 
 .card-img-top{
-  max-width: 286.4px;
-  max-height: 265px;
+  min-width: 300px;
+  min-height: 300px;
 }
 
 

@@ -161,13 +161,16 @@ export default function Home() {
                     <div className='img-holder'>
                     <img src={nft.image} className="card-img-top" alt="NFT image" />
                     </div>
-                    <div className="card-body">
+                    <div className="card-body" style={{position:'relative'}}>
                       <h5 className="card-title">{nft.name}</h5>
-                      <p className="card-text">{nft.description}</p>
+                      
                       <p className="card-text">{nft.price} ETH</p>
                       <button
                       type="button"
                       className="btn btn-dark"
+                      style={{position: 'absolute',
+                        right: '25px',
+                        top: 55}}
                       disabled={buttonStates[i]} // Disable the button if it's already loading or user is the owner
                       onClick={() => buyNft(nft, i)}
                     >
