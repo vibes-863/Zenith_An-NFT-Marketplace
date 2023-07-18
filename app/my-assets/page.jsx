@@ -67,9 +67,7 @@ export default function MyAssets() {
     /**  The listNFT function will reroute the page to the re-list nft page along with the nfts data where the user 
      * will be able to re-list their NFT*/
     function listNFT(nft) {
-        console.log('nft:', nft)
         router.push(`/relist-nft?id=${nft.tokenId}&tokenUri=${nft.tokenUri}`)
-
     }
 
     //If the loadingState is 'loaded' and there are no items in the nfts array...
@@ -87,7 +85,7 @@ export default function MyAssets() {
                                 <div key={i} className="col">
                                     <div className="card" style={{ width: '18rem' }}>
                                         <div className='img-holder'>
-                                            <img src={nft.image} className="card-img-top" alt="..." />
+                                            <img src={nft.image} className="card-img-top" alt="NFT image" />
                                         </div>
                                         <div className="card-body">
                                             <p className="card-text">Price - {nft.price} ETH</p>
