@@ -535,4 +535,35 @@ describe("NFTMarketplace", async function () {
       ).to.be.revertedWith("Only product owner can do this operation");
     });
   });
+
+  describe("Fetching single NFT Details", function () {
+    beforeEach(async function () {
+      // fetch the listing price from the NFTmarket contract
+      listingPrice = await market.getListingPrice();
+      listingPrice = listingPrice.toString();
+      // addr1 mints first nft
+      await nft.connect(addr1).createToken(URI);
+      // addr1 makes their first nft a marketplace item
+      await market
+        .connect(addr1)
+        .createMarketItem(nftContractAddress, 1, toWei(1), {
+          value: listingPrice,
+        });
+    });
+
+    it("Should fetch the details of the NFT using fetchNFTDetails and store it in a struct called 'item'", async function () {
+      // retrieve the market item
+      const item = await market.fetchNFTDetails(1);
+
+      // verify all the item's values are correct
+      expect(item.itemId).to.equal(1);
+      expect(item.nftContract).to.equal(nftContractAddress);
+      expect(item.tokenId).to.equal(1);
+      expect(item.seller).to.equal(addr1.address);
+      expect(item.owner).to.equal("0x0000000000000000000000000000000000000000");
+      expect(item.price).to.equal(toWei(1));
+      expect(item.sold).to.equal(false);
+      expect(await nft.tokenURI(item.tokenId)).to.equal(URI);
+    });
+  });
 });
