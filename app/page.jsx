@@ -77,6 +77,13 @@ export default function Home() {
     setButtonStates(Array(items.length).fill(false));
   }
 
+  if(loadingState !== 'loaded'){
+    return(
+      <div className='loadingDiv'>
+        <span class="loader"><span class="loader-inner"></span></span>
+      </div>
+    )
+  }
 
 
   //If the loadingState is 'loaded' and there are no items in the nfts array...

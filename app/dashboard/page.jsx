@@ -72,6 +72,14 @@ export default function Dashboard() {
         setLoadingState('loaded')
     }
 
+    if(loadingState !== 'loaded'){
+        return(
+          <div className='loadingDiv'>
+            <span class="loader"><span class="loader-inner"></span></span>
+          </div>
+        )
+      }
+      
     return (
         <div style={{padding: 65}}>
             <section id="allItems">

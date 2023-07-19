@@ -70,6 +70,14 @@ export default function MyAssets() {
         router.push(`/relist-nft?id=${nft.tokenId}&tokenUri=${nft.tokenUri}`)
     }
 
+    if(loadingState !== 'loaded'){
+        return(
+          <div className='loadingDiv'>
+            <span class="loader"><span class="loader-inner"></span></span>
+          </div>
+        )
+      }
+      
     //If the loadingState is 'loaded' and there are no items in the nfts array...
     if (loadingState === 'loaded' && !nfts.length) return (
         <div style={{display: 'table-cell',
