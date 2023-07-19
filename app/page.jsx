@@ -4,7 +4,7 @@ import React from 'react'
 import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import Web3Modal from "web3modal"
+import { useRouter } from 'next/navigation'
 
 import {
   nftaddress, nftmarketaddress
@@ -30,7 +30,8 @@ export default function Home() {
   const [nfts, setNfts] = useState([])
   const [loadingState, setLoadingState] = useState('not-loaded')
   const [buttonStates, setButtonStates] = useState([])
-  const [loadingItems, setLoadingItems] = useState([]) // Track loading state for each NFT item
+  
+  const router = useRouter()
 
   //The 'useEffect' hook is used to load the NFTs when the component mounts. 
   useEffect(() => {
@@ -57,7 +58,9 @@ export default function Home() {
       const tokenUri = await tokenContract.tokenURI(i.tokenId)
       const meta = await axios.get(tokenUri)
       let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
+      
       let item = {
+        tokenId: i.tokenId.toString(),
         price,
         itemId: i.itemId.toNumber(),
         seller: i.seller,
@@ -74,51 +77,7 @@ export default function Home() {
     setButtonStates(Array(items.length).fill(false));
   }
 
-  /**The buyNft function is an asynchronous function responsible for buying an NFT from the marketplace.*/
-  async function buyNft(nft, index) {
-    setLoadingItems((prevLoadingItems) => [...prevLoadingItems, index]) // Update loading state for the item
-    setButtonStates((prevButtonStates) => {
-      const newButtonStates = [...prevButtonStates];
-      newButtonStates[index] = true; // Disable the button
-      return newButtonStates;
-    });
 
-
-    //It creates an instance of Web3Modal and prompts the user to connect to their Ethereum wallet.
-    const web3Modal = new Web3Modal()
-    const connection = await web3Modal.connect()
-
-    //It then creates a Web3Provider using the established connection and obtains the signer (account) for executing transactions.
-    const provider = new ethers.providers.Web3Provider(connection)
-    const signer = provider.getSigner()
-
-    //An instance of the marketplace contract is created using the nftmarketaddress, ABI, and signer.
-    const contract = new ethers.Contract(nftmarketaddress, Market.abi, signer)
-
-    //The price of the NFT is parsed from a string to a BigNumber using ethers.utils.parseUnits.
-    const price = ethers.utils.parseUnits(nft.price.toString(), 'ether')
-    
-    try{
-    //The createMarketSale function is called on the contract to execute the transaction and buy the NFT.
-    const transaction = await contract.createMarketSale(nftaddress, nft.itemId, {
-      value: price
-    })
-
-    // After the transaction is successfully completed, the loadNFTs function is called to refresh the list of NFTs.
-    await transaction.wait()
-    loadNFTs()
-  }catch (error){
-    console.error('Error buying NFT:', error)
-    setButtonStates((prevButtonStates) => {
-      const newButtonStates = [...prevButtonStates];
-      newButtonStates[index] = false; // Enable the button
-      return newButtonStates;
-    })
-    setLoadingItems((prevLoadingItems) => prevLoadingItems.filter((_, idx) => idx !== index));
-  } finally {
-    setLoadingItems((prevLoadingItems) => prevLoadingItems.filter((_, idx) => idx !== index)) // Remove item from loading state
-  }
-}
 
   //If the loadingState is 'loaded' and there are no items in the nfts array...
   if (loadingState === 'loaded' && !nfts.length)
@@ -165,6 +124,7 @@ export default function Home() {
                       <h5 className="card-title">{nft.name}</h5>
                       
                       <p className="card-text">{nft.price} ETH</p>
+
                       <button
                       type="button"
                       className="btn btn-dark"
@@ -172,7 +132,7 @@ export default function Home() {
                         right: '25px',
                         top: 55}}
                       disabled={buttonStates[i]} // Disable the button if it's already loading or user is the owner
-                      onClick={() => buyNft(nft, i)}
+                      onClick={() => router.push({`/${nft.tokenId}`})}
                     >
                       {buttonStates[i] ? 'Loading...' : 'Buy'}
                     </button>
