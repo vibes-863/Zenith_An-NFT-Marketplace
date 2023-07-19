@@ -4,6 +4,8 @@ import React from 'react'
 import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
+
 import {
   nftaddress, nftmarketaddress
 } from '../config'
@@ -28,6 +30,8 @@ export default function Home() {
   const [nfts, setNfts] = useState([])
   const [loadingState, setLoadingState] = useState('not-loaded')
   const [buttonStates, setButtonStates] = useState([])
+  
+  const router = useRouter()
 
   //The 'useEffect' hook is used to load the NFTs when the component mounts. 
   useEffect(() => {
@@ -107,7 +111,7 @@ export default function Home() {
       </section>
 
       <section id="gallery">
-        <div className="container" style={{margin: 50,}}>
+        <div className="container">
           <div className="row row-cols-auto">
             {
               nfts.map((nft, i) => (
@@ -116,15 +120,22 @@ export default function Home() {
                     <div className='img-holder'>
                     <img src={nft.image} className="card-img-top" alt="NFT image" />
                     </div>
-                    <div className="card-body">
+                    <div className="card-body" style={{position:'relative'}}>
                       <h5 className="card-title">{nft.name}</h5>
-                      <p className="card-text">{nft.description}</p>
-                      <p className="card-text">{nft.price} ETH</p>
                       
-                <a href={`/${nft.tokenId}`} className="btn btn-dark" disabled={buttonStates[i]}>
-                  {buttonStates[i] ? 'Loading...' : 'Buy'}
-                </a>
-             
+                      <p className="card-text">{nft.price} ETH</p>
+
+                      <button
+                      type="button"
+                      className="btn btn-dark"
+                      style={{position: 'absolute',
+                        right: '25px',
+                        top: 55}}
+                      disabled={buttonStates[i]} // Disable the button if it's already loading or user is the owner
+                      onClick={() => router.push({`/${nft.tokenId}`})}
+                    >
+                      {buttonStates[i] ? 'Loading...' : 'Buy'}
+                    </button>
                     </div>
                   </div>                  
                 </div>

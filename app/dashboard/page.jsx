@@ -73,9 +73,9 @@ export default function Dashboard() {
     }
 
     return (
-        <div>
+        <div style={{padding: 65}}>
             <section id="allItems">
-                <h3 className='text-2xl py-2'>Items Created</h3>
+            <h1 className='create-title'>Items Created</h1>
                 <div className="container" style={{margin: 50,}}>
                     <div className="row row-cols-auto">
                         {
@@ -84,7 +84,7 @@ export default function Dashboard() {
                                     <div className="card" style={{ width: '18rem' }}>
                                     <div className='img-holder'>
                                         <img src={nft.image} className="card-img-top" alt="NFT image" />
-                                        </div><div className="card-body">
+                                        </div><div className="card-body" style={{position:'relative'}}>
                                         <h5 className="card-title">{nft.name}</h5>
                                             <p className="card-text">{nft.description}</p>
                                             <p className="card-text">Price - {nft.price} ETH</p>
@@ -101,7 +101,7 @@ export default function Dashboard() {
                 {
                     Boolean(sold.length) && (
                         <div>
-                            <h3 className='text-2xl py-2'>Items sold</h3>
+                            <h1 className='create-title' style={{margin:'40px 0px 30px'}}>Items Sold</h1>
                             <div className="container" style={{margin: 50,}}>
                                 <div className="row row-cols-auto">
                                     {
@@ -111,7 +111,7 @@ export default function Dashboard() {
                                                     <div className='img-holder'>
                                                         <img src={nft.image} className="card-img-top" alt="NFT image" />
                                                     </div>
-                                                    <div className="card-body">
+                                                    <div className="card-body" style={{position:'relative'}}>
                                                         <h5 className="card-title">{nft.name}</h5>
                                                         <p className="card-text">{nft.description}</p>
                                                         <p className="card-text">Price - {nft.price} ETH</p>
