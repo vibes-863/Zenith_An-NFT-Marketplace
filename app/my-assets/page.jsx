@@ -74,13 +74,19 @@ export default function MyAssets() {
 
     //If the loadingState is 'loaded' and there are no items in the nfts array...
     if (loadingState === 'loaded' && !nfts.length) return (
-        <h3 className="px-20 py-10 text-3xl">No assets owned</h3>
+        <div style={{display: 'table-cell',
+            verticalAlign: 'middle',
+            textAlign: 'center',
+            height: 700}}>
+        <h1 className='create-title'>"Oops, you've got an empty digital museum - Time to get some virtual masterpieces!"</h1>
+        </div>
     );
 
     return (
         <div>
             <section id="gallery">
-                <div className="container" style={{margin: 50,}}>
+                <div className="container">
+                <h1 className='create-title'>Owned Items</h1>
                     <div className="row row-cols-auto">
                         {
                             nfts.map((nft, i) => (
@@ -89,9 +95,11 @@ export default function MyAssets() {
                                         <div className='img-holder'>
                                             <img src={nft.image} className="card-img-top" alt="NFT image" />
                                         </div>
-                                        <div className="card-body">
+                                        <div className="card-body" style={{position:'relative'}}>
                                             <p className="card-text">Price - {nft.price} ETH</p>
-                                            <button type="button" className="btn btn-dark" onClick={() => listNFT(nft)}>Re-List</button>
+                                            <button style={{position: 'absolute',
+                        right: '25px',
+                        top: 55}} type="button" className="btn btn-dark" onClick={() => listNFT(nft)}>Re-List</button>
                                         </div>
                                     </div>
                                 </div>
