@@ -76,7 +76,7 @@ export default function MyAssets() {
             verticalAlign: 'middle',
             textAlign: 'center',
             height: 700}}>
-        <h1 className='create-title'>"Oops, you've got an empty digital museum - Time to get some virtual masterpieces!"</h1>
+        <h1 className='create-title'>&quot;Oops, you&apos;ve got an empty digital museum - Time to get some virtual masterpieces!&quot;</h1>
         </div>
     );
 
