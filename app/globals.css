@@ -451,3 +451,11 @@ p {
     height: 0%;
   }
 }
+
+
+.description{
+  position: absolute;
+  width: fit-content;
+  left: 550px;
+  top: 30px;
+ }
