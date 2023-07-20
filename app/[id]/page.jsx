@@ -106,25 +106,49 @@ export default function NFTDetails({ params, searchParams }) {
     }
   }
 
-  if (loadingState !== "loaded")
-    return (
-      <>
-        <div>Loading...</div>
-      </>
-    );
+
+
+    if (loadingState !== "loaded") {
+      return (
+        <div className="loadingDiv">
+          <span class="loader">
+            <span class="loader-inner"></span>
+          </span>
+        </div>
+      );
+    }
+    
 
   // Render the NFT details on the page
   return (
     <>
-      <div>
-        <h1>NFT Details</h1>
+
+      <div className="container" style={{padding: '0px 145px'}}>
+        <h1 className="create-title">NFT Details</h1>
+        <div style={{ position: 'relative', marginBottom: 70 }}>
+          <div>
+           <img className="rounded mt-4" width="350" src={nft.image} />
+          </div>
+
+          <div class="description">
+            <h2 style={{ paddingBottom: 36, fontSize: 50 }}>#{nft.tokenId} - {nft.name}</h2>
+            <span id="Price" style={{marginBottom: 50}}>
+              <h6 style={{color: 'gray'}}>Current Price</h6>
+              <h3 style={{fontSize: 30}}>{nft.price}</h3>
+            </span>
+            <h5>Description</h5>
+            <p style={{ width: 450 }}>{nft.description}</p>
+          </div>
+        </div>
+        {/* <h1>NFT Details</h1>
         <p>Token ID: {nft.tokenId}</p>
         <p>Name: {nft.name}</p>
         <p>Description: {nft.description}</p>
         <p>Seller address: {nft.seller}</p>
         <p>Price: {nft.price}</p>
-        <img src={nft.image} className="card-img-top" alt="NFT image" />
+        <img src={nft.image} className="card-img-top" alt="NFT image" /> */}
         <button
+        style={{display: 'block', margin: '0px auto'}}
           type="button"
           className="btn btn-dark"
           disabled={buttonState} // Disable the button if it's already loading or user is the owner
