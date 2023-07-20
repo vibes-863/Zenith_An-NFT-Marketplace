@@ -118,7 +118,7 @@ export default function MyAssets() {
                     />
                   </div>
                   <div className="card-body" style={{ position: "relative" }}>
-                    <p className="card-text">Price - {nft.price} ETH</p>
+                    <p className="card-text"><span style={{color: 'darkgray', fontSize: 17}}>MATIC</span> {nft.price}</p>
                     <button
                       style={{ position: "absolute", right: "25px", top: 55 }}
                       type="button"

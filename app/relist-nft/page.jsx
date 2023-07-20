@@ -118,7 +118,7 @@ export default function RelistNFT() {
                     type="number"
                     className="form-control"
                     id="exampleFormControlInput1"
-                    placeholder="Asset Price in ETH"
+                    placeholder="Asset Price in MATIC"
                     onChange={(e) =>
                         updateFormInput({ ...formInput, price: e.target.value })
                     }

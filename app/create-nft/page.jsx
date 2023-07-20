@@ -221,7 +221,7 @@ export default function CreateNFT() {
           type="number"
           className="form-control"
           id="exampleFormControlInput1"
-          placeholder="Asset Price in Matic"
+          placeholder="Asset Price in MATIC"
           value={formInput.price}
           onChange={(e) =>
             updateFormInput({ ...formInput, price: e.target.value })

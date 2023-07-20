@@ -133,8 +133,8 @@ export default function NFTDetails({ params, searchParams }) {
           <div class="description">
             <h2 style={{ paddingBottom: 36, fontSize: 50 }}>#{nft.tokenId} - {nft.name}</h2>
             <span id="Price" style={{marginBottom: 50}}>
-              <h6 style={{color: 'gray'}}>Current Price</h6>
-              <h3 style={{fontSize: 30}}>{nft.price}</h3>
+              <h5>Current Price</h5>
+              <h3 style={{fontSize: 30}}><span style={{color: 'darkgray', fontSize: 23}}>MATIC</span> {nft.price}</h3>
             </span>
             <h5>Description</h5>
             <p style={{ width: 450 }}>{nft.description}</p>

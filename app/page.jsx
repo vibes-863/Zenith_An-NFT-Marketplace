@@ -135,7 +135,7 @@ export default function Home() {
                   <div className="card-body" style={{ position: "relative" }}>
                     <h5 className="card-title">{nft.name}</h5>
 
-                    <p className="card-text">{nft.price} ETH</p>
+                    <p className="card-text"><span style={{color: 'darkgray', fontSize: 17}}>MATIC</span> {nft.price}</p>
 
                     <button
                       type="button"
