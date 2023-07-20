@@ -273,14 +273,17 @@ p {
   
 }
 
-.navbar-nav{
-  position: absolute;
-    right: 30px;
-}
 
 .navbar-collapse{
   width: fit-content;
-    position: relative;
+  position: relative; 
+}
+
+@media (min-width: 992px){
+  .navbar-nav{
+    position: absolute;
+      right: 30px;
+  }
 }
 
 .navbar-brand{
