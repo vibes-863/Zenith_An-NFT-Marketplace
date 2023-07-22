@@ -138,7 +138,7 @@ function RootLayout({ children }) {
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link link hover-2" href="/dashboard">
-                      My Listed Items
+                      My Created Items
                     </Link>
                   </li>
                   <li className="nav-item">
