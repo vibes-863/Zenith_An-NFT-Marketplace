@@ -99,7 +99,7 @@ export default function NFTDetails({ params, searchParams }) {
       );
       // After the transaction is successfully completed, the user is redirected to the home page.
       await transaction.wait();
-      router.push("/");
+      router.push("/my-assets");
     } catch (error) {
       console.error("Error buying NFT:", error);
       setButtonStates(false); // Enable the button
