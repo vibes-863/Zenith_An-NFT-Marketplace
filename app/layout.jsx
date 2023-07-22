@@ -1,13 +1,13 @@
 "use client";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Modal, Spinner } from "reactstrap";
 import "./globals.css";
 import Link from "next/link";
 import Script from "next/script";
 
 import { useState } from "react";
 import { ethers } from "ethers";
-import { Modal, Spinner } from "reactstrap";
 
 function RootLayout({ children }) {
   const [account, setAccount] = useState(null);
@@ -185,7 +185,7 @@ function RootLayout({ children }) {
                 }}
               >
                 <Spinner animation="border" style={{ display: "flex" }} />
-                <p className="'mx-3 my-0">Awating Metamask Connection...</p>
+                <p className="'mx-3 my-0">Awating Metamask Connection.....Please 'Connect Wallet'</p>
               </div>
             )}
           </main>
