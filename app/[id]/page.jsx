@@ -140,13 +140,6 @@ export default function NFTDetails({ params, searchParams }) {
             <p style={{ width: 525 }}>{nft.description}</p>
           </div>
         </div>
-        {/* <h1>NFT Details</h1>
-        <p>Token ID: {nft.tokenId}</p>
-        <p>Name: {nft.name}</p>
-        <p>Description: {nft.description}</p>
-        <p>Seller address: {nft.seller}</p>
-        <p>Price: {nft.price}</p>
-        <img src={nft.image} className="card-img-top" alt="NFT image" /> */}
         <button
         style={{display: 'block'}}
           type="button"
@@ -154,7 +147,7 @@ export default function NFTDetails({ params, searchParams }) {
           disabled={buttonState} // Disable the button if it's already loading or user is the owner
           onClick={() => buyNft(nft)}
         >
-          {buttonState ? "Loading..." : "Buy"}
+          {buttonState ? "Loading..." : ("Buy")}
         </button>
       </div>
     </>
