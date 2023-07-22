@@ -138,18 +138,18 @@ function RootLayout({ children }) {
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link link hover-2" href="/create-nft">
-                      Sell Digital Assets
+                      Create NFT
                     </Link>
                   </li>
 
                   <li className="nav-item">
                     <Link className="nav-link link hover-2" href="/my-assets">
-                      My Digital Assets
+                      My Purchases
                     </Link>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link link hover-2" href="/dashboard">
-                      Dashboard
+                      My Listed Items
                     </Link>
                   </li>
                   <li className="nav-item">
