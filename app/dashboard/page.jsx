@@ -13,10 +13,8 @@ import Market from "../../artifacts/contracts/NFTmarket.sol/NFTmarket.json";
 export default function Dashboard() {
   /** We have two arrays which can be set using the useState function. The
    * 'nfts' array will store the nfts that we have created (sold and unsold)
-   * 'sold' array will store the nfts that we have created which have been sold.
    */
   const [nfts, setNfts] = useState([]);
-  //const [sold, setSold] = useState([]);
 
   //'loadingState' tracks the loading status of the NFTs.
   const [loadingState, setLoadingState] = useState("not-loaded");
@@ -58,6 +56,7 @@ export default function Dashboard() {
           itemId: i.itemId.toNumber(),
           price,
           tokenId: i.tokenId.toNumber(),
+          creator: i.creator,
           seller: i.seller,
           owner: i.owner,
           sold: i.sold,
@@ -68,12 +67,7 @@ export default function Dashboard() {
       })
     );
 
-    // We filter the items above by checking if it is sold and then store those
-    // items into an new array 'soldItems'
-    //const soldItems = items.filter((i) => i.sold);
-
-    /**The resulting array of items is stored in the 'sold' and 'nfts' state variables, and the loadingState is set to 'loaded'. */
-    //setSold(soldItems);
+    /**The resulting array of items is stored in the'nfts' state variable, and the loadingState is set to 'loaded'. */
     setNfts(items);
     setLoadingState("loaded");
   }
@@ -124,11 +118,10 @@ export default function Dashboard() {
                     </p>
                   </div>
                   {
-                    nft.sold ? (
+                    (nft.sold || (nft.creator != nft.seller)) ? (
                       <div>
                         <Badge
-                          variant="flat"
-                          
+                          variant="flat"d
                           color="error"
                           size="xl"
                         >
@@ -146,41 +139,6 @@ export default function Dashboard() {
           </div>
         </div>
       </section>
-
-      {/* <section id="soldItems">
-        {Boolean(sold.length) && (
-          <div>
-            <h1 className="create-title" style={{ margin: "40px 0px 30px" }}>
-              Items Sold
-            </h1>
-            <div className="container" style={{ margin: 50 }}>
-              <div className="row row-cols-auto">
-                {sold.map((nft, i) => (
-                  <div key={i} className="col">
-                    <div className="card" style={{ width: "18rem" }}>
-                      <div className="img-holder">
-                        <img
-                          src={nft.image}
-                          className="card-img-top"
-                          alt="NFT image"
-                        />
-                      </div>
-                      <div
-                        className="card-body"
-                        style={{ position: "relative" }}
-                      >
-                        <h5 className="card-title">{nft.name}</h5>
-                        <p className="card-text">{nft.description}</p>
-                        <p className="card-text"><span style={{color: 'darkgray', fontSize: 17}}>MATIC</span> {nft.price}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-      </section> */}
     </div>
   );
 }

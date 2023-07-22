@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Web3Modal from "web3modal";
 import { useRouter } from "next/navigation";
+import { Badge } from "@nextui-org/react";
 
 import { nftaddress, nftmarketaddress } from "../../config";
 
@@ -60,6 +61,8 @@ export default function MyAssets() {
           seller: i.seller,
           owner: i.owner,
           image: meta.data.image,
+          name: meta.data.name,
+          relisted: i.relisted,
           tokenUri,
         };
         return item;
@@ -123,21 +126,39 @@ export default function MyAssets() {
                     />
                   </div>
                   <div className="card-body" style={{ position: "relative" }}>
+                    <h5 className="card-title">{nft.name}</h5>
+
                     <p className="card-text">
                       <span style={{ color: "darkgray", fontSize: 17 }}>
                         MATIC
                       </span>{" "}
                       {nft.price}
                     </p>
-                    <button
-                      style={{ position: "absolute", right: "25px", top: 55 }}
-                      type="button"
-                      className="btn btn-dark"
-                      disabled={buttonStates[i]} // Disable the button if it's already loading or user is the owner
-                      onClick={() => listNFT(nft)}
-                    >
-                      {buttonStates[i] ? "Loading..." : "Re-List"}
-                    </button>
+                    
+                    {
+                      nft.relisted ? (
+                        <div>
+                          <Badge
+                            variant="flat"
+                            color="error"
+                            size="xl"
+                          >
+                            RE-LISTED
+                          </Badge>
+                        </div>                        
+                      ) : (
+                        <button
+                          style={{ position: "absolute", right: "25px", top: 55 }}
+                          type="button"
+                          className="btn btn-dark"
+                          disabled={buttonStates[i]} // Disable the button if it's already loading or user is the owner
+                          onClick={() => listNFT(nft)}
+                        >
+                          {buttonStates[i] ? "Loading..." : "Re-List"}
+                        </button> 
+                      )
+                    }
+
                   </div>
                 </div>
               </div>
