@@ -48,7 +48,7 @@ export default function NFTDetails({ params, searchParams }) {
 
     // It calls the fetchNFTDetailsfunction on the marketplace contract to retrieve the market item.
     const data = await marketContract.fetchNFTDetails(params.id);
-
+    
     // Fetching additional metadata for each item using the NFT contract
     const tokenUri = await tokenContract.tokenURI(data.tokenId);
     const meta = await axios.get(tokenUri);

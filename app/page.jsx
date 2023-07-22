@@ -142,7 +142,7 @@ export default function Home() {
                       className="btn btn-dark"
                       style={{ position: "absolute", right: "25px", top: 55 }}
                       disabled={buttonStates[i]} // Disable the button if it's already loading or user is the owner
-                      onClick={() => router.push(`/${nft.tokenId}`)}
+                      onClick={() => router.push(`/${nft.itemId}`)}
                     >
                       {buttonStates[i] ? "Loading..." : "Buy"}
                     </button>

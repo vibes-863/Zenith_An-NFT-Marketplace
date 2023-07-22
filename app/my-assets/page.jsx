@@ -52,6 +52,7 @@ export default function MyAssets() {
         const meta = await axios.get(tokenUri);
         let price = ethers.utils.formatUnits(i.price.toString(), "ether");
         let item = {
+          itemId: i.itemId.toNumber(),
           price,
           tokenId: i.tokenId.toNumber(),
           seller: i.seller,
@@ -70,7 +71,7 @@ export default function MyAssets() {
   /**  The listNFT function will reroute the page to the re-list nft page along with the nfts data where the user
    * will be able to re-list their NFT*/
   function listNFT(nft) {
-    router.push(`/relist-nft?id=${nft.tokenId}&tokenUri=${nft.tokenUri}`);
+    router.push(`/relist-nft?id=${nft.itemId}&tokenUri=${nft.tokenUri}`);
   }
 
   if (loadingState !== "loaded") {

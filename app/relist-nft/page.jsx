@@ -125,8 +125,6 @@ export default function RelistNFT() {
                 />
             </div>
 
-
-
             <div>
                 <button className="btn btn-dark" style={{margin: '24px auto 40px'}} onClick={listNFTForSale}>
                     List NFT
