@@ -137,16 +137,16 @@ export default function Home() {
 
                     <p className="card-text"><span style={{color: 'darkgray', fontSize: 17}}>MATIC</span> {nft.price}</p>
 
-                    <button
+                  </div>
+                  <button
                       type="button"
-                      className="btn btn-dark"
-                      style={{ position: "absolute", right: "25px", top: 55 }}
+                      className="btn btn-dark create-btn"
+                      // style={{ position: "absolute", right: "25px", top: 55 }}
                       disabled={buttonStates[i]} // Disable the button if it's already loading or user is the owner
                       onClick={() => router.push(`/${nft.itemId}`)}
                     >
                       {buttonStates[i] ? "Loading..." : "Buy"}
                     </button>
-                  </div>
                 </div>
               </div>
             ))}
