@@ -6,10 +6,10 @@ import Web3Modal from "web3modal";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 
-import { nftaddress, nftmarketaddress } from "../../config";
+import { nftaddress, nftmarketaddress } from "../../../config";
 
-import NFT from "../../artifacts/contracts/NFT.sol/NFT.json";
-import Market from "../../artifacts/contracts/NFTmarket.sol/NFTmarket.json";
+import NFT from "../../../artifacts/contracts/NFT.sol/NFT.json";
+import Market from "../../../artifacts/contracts/NFTmarket.sol/NFTmarket.json";
 
 export default function RelistNFT() {
     const [loadingState, setLoadingState] = useState("not-loaded");

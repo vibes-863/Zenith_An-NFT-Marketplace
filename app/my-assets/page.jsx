@@ -71,7 +71,7 @@ export default function MyAssets() {
   /**  The listNFT function will reroute the page to the re-list nft page along with the nfts data where the user
    * will be able to re-list their NFT*/
   function listNFT(nft) {
-    router.push(`/relist-nft?id=${nft.itemId}&tokenUri=${nft.tokenUri}`);
+    router.push(`/my-assets/relist-nft?id=${nft.itemId}&tokenUri=${nft.tokenUri}`);
   }
 
   if (loadingState !== "loaded") {
