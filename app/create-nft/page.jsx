@@ -286,10 +286,8 @@ export default function CreateNFT() {
         </Modal.Header>
 
         <Modal.Body>
-          <Text align="justify" size={17}>Please note that there will be two transactions that you need to confirm. One to create the Token and the other to list it into the marketplace.</Text>
-          <Text align="center" size={14}>Each transaction may take upto 20 seconds</Text>
-          <Text align="center" b size={17}>Please confirm both.</Text>
-
+          <Text align="justify" size={17}>Please confirm BOTH the transactions in order to create and then list the Token.</Text>
+          <Text align="center" b size={14}>Each transaction may take upto 20 seconds</Text>
         </Modal.Body>
       </Modal>
     </div>
