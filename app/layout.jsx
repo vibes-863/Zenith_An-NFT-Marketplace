@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
@@ -7,6 +7,7 @@ import Script from "next/script";
 
 import { useState } from "react";
 import { ethers } from "ethers";
+import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 
 export const metadata = {
   title: "Zenith",
@@ -14,15 +15,25 @@ export const metadata = {
 };
 
 function RootLayout({ children }) {
-  const [account, setAccount] = useState(null)
+  const [account, setAccount] = useState(null);
+  const [modalDefaultOpen, setModalDefaultOpen] = useState(false);
   // MetaMask Login/Connect
   const web3Handler = async () => {
-    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    setAccount(accounts[0])
-    // Get provider from MetaMask
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    const signer = provider.getSigner();
-  }
+    // If function checks if metamask wallet present, if not a modal pops up
+    if (typeof window.ethereum === "undefined") {
+      console.log("MetaMask is not installed!");
+      setModalDefaultOpen(true);
+    } else {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      setAccount(accounts[0]);
+      // Get provider from MetaMask
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+    }
+  };
+
   return (
     <>
       <html lang="en">
@@ -42,6 +53,55 @@ function RootLayout({ children }) {
         </head>
 
         <body>
+          <Modal
+            isOpen={modalDefaultOpen}
+            toggle={() => setModalDefaultOpen(false)}
+          >
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h1 className="modal-title fs-5" id="staticBackdropLabel">
+                    Error: MetaMask Wallet Not Detected
+                  </h1>
+                  <button
+                    aria-label="Close"
+                    className="btn-close"
+                    onClick={() => setModalDefaultOpen(false)}
+                    type="button"
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  <p>
+                    We apologize for the inconvenience, but in order to perform
+                    transactions and access the full range of features on
+                    Zenith, you will need to have a MetaMask Wallet installed.
+                    MetaMask is a secure and widely used cryptocurrency wallet
+                    that enables seamless interactions with decentralized
+                    applications like ours.
+                  </p>
+                  <p>
+                    Please follow the
+                    <a href="https://tinyurl.com/zenith-user-guide">
+                      {" "}
+                      setup guide
+                    </a>{" "}
+                    and try again.
+                  </p>
+                  <p>Thank you.</p>
+                </div>
+                <div className="modal-footer">
+                  <Button
+                    color="dark"
+                    type="button"
+                    onClick={() => setModalDefaultOpen(false)}
+                  >
+                    Close
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </Modal>
+
           <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
               <Link className="navbar-brand" href="/">
@@ -106,7 +166,13 @@ function RootLayout({ children }) {
                         </button>
                       </Link>
                     ) : (
-                      <button type="button" className="btn btn-dark" onClick={web3Handler}>Connect Wallet</button>
+                      <button
+                        type="button"
+                        className="btn btn-dark"
+                        onClick={web3Handler}
+                      >
+                        Connect Wallet
+                      </button>
                     )}
                   </li>
                 </ul>
