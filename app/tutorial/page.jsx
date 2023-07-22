@@ -1,4 +1,5 @@
 import Script from "./script.jsx";
+import Link from "next/link";
 //import icon from './meta.png';
 
 export default function tutorial() {
@@ -222,21 +223,21 @@ export default function tutorial() {
                   </p>
                 </li>
               </ul>
-              <a
+              <Link
                 className="link hover-1"
                 style={{ color: "#F0F5F9", fontSize: "30px" }}
                 href="https://influencermarketinghub.com/creators-nfts/"
               >
                 Influencer Marketing Hub - 8 Things Creators Must Consider About
                 NFTs
-              </a>
-              <a
+              </Link>
+              <Link
                 className="link hover-1"
                 style={{ color: "#F0F5F9", fontSize: "30px" }}
                 href="https://www.socialmediaexaminer.com/nfts-for-creators-everything-you-need-to-know/"
               >
                 NFTs for Creators: Everything You Need to Know
-              </a>
+              </Link>
             </div>
             <div className="carousel-item" data-bs-interval="4000">
               <h2 className="carousel-head" style={{ color: "#F0F5F9" }}>
@@ -280,13 +281,13 @@ export default function tutorial() {
                   </p>
                 </li>
               </ul>
-              <a
+              <Link
                 className="link hover-1"
                 style={{ color: "#F0F5F9", fontSize: "30px" }}
                 href="https://www.nftgators.com/nft-collections/"
               >
                 NFTGATORS
-              </a>
+              </Link>
             </div>
             <div className="carousel-item" data-bs-interval="4000">
               <h2 className="carousel-head" style={{ color: "#F0F5F9" }}>
@@ -329,21 +330,21 @@ export default function tutorial() {
                   </p>
                 </li>
               </ul>
-              <a
+              <Link
                 className="link hover-1"
                 style={{ color: "#F0F5F9", fontSize: "30px" }}
                 href="https://influencermarketinghub.com/creators-nfts/"
               >
                 Influencer Marketing Hub - 8 Things Creators Must Consider About
                 NFTs
-              </a>
-              <a
+              </Link>
+              <Link
                 className="link hover-1"
                 style={{ color: "#F0F5F9", fontSize: "30px" }}
                 href="https://www.socialmediaexaminer.com/nfts-for-creators-everything-you-need-to-know/"
               >
                 NFTs for Creators: Everything You Need to Know
-              </a>
+              </Link>
             </div>
           </div>
           <button
@@ -378,7 +379,7 @@ export default function tutorial() {
           <h2 style={{ display: "inline", fontSize: "60px" }}>
             Creating a Metamask Wallet
           </h2>
-          <a
+          <Link
             href="https://metamask.io/"
             type="button"
             className="btn btn-outline-warning"
@@ -390,7 +391,7 @@ export default function tutorial() {
               style={{ width: "25px" }}
             />{" "}
             Metamask
-          </a>
+          </Link>
           <ol style={{ fontSize: 20 }}>
             <li className="slide-up">
               <p>
