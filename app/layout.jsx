@@ -9,11 +9,6 @@ import { useState } from "react";
 import { ethers } from "ethers";
 import { Modal, Spinner } from "reactstrap";
 
-export const metadata = {
-  title: "Zenith",
-  description: "An NFT Marketplace",
-};
-
 function RootLayout({ children }) {
   const [account, setAccount] = useState(null);
   const [modalDefaultOpen, setModalDefaultOpen] = useState(false);
