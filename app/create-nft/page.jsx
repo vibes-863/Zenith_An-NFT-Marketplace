@@ -4,7 +4,7 @@ import { ethers } from "ethers";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import { useRouter } from "next/navigation";
 import Web3Modal from "web3modal";
-import { Tooltip } from "@nextui-org/react";
+import { Modal, Tooltip, Text, Loading } from "@nextui-org/react";
 
 // This will be used to store the NFTs data
 const auth =
@@ -42,6 +42,13 @@ export default function CreateNFT() {
 
   const [loading, setLoading] = useState(false);
 
+  const [visible, setVisible] = useState(false);
+  const handler = () => setVisible(true);
+  const closeHandler = () => {
+    setVisible(false);
+    console.log("closed");
+  };
+
   const router = useRouter();
 
   useEffect(() => {
@@ -76,6 +83,9 @@ export default function CreateNFT() {
 
   // the following function is used to create and saving it to ipfs
   async function createNFT() {
+
+    await handler();
+
     // we destructure the name, description, and price from the form input
     const { name, description, price } = formInput;
     // we then check to see if all the required values have been entered.
@@ -99,6 +109,7 @@ export default function CreateNFT() {
     } catch (error) {
       console.log("Error uploading file: ", error);
       setLoading(false);
+      await closeHandler();
     }
   }
 
@@ -141,7 +152,8 @@ export default function CreateNFT() {
       value: listingPrice,
     });
     await transaction.wait();
-
+    
+    await closeHandler();
     // We then reroute the user to the home page.
     router.push("/");
   }
@@ -243,7 +255,7 @@ export default function CreateNFT() {
           onChange={(e) => {
             const newValue = parseFloat(e.target.value); // Parse the input value to a floating-point number
             const positiveValue = isNaN(newValue) ? "" : Math.max(0, newValue); // Make sure it's a positive number
-            updateFormInput({ ...formInput, price: positiveValue });
+            updateFormInput({ ...formInput, price: positiveValue.toString() });
           }}
           step="0.01" // This step attribute restricts the input to 2 decimal places (adjust as needed)
           min="0" // This sets the minimum allowed value to 0, so only positive decimals are accepted
@@ -259,6 +271,26 @@ export default function CreateNFT() {
       >
         {loading ? "Creating..." : "Create Digital Asset"}
       </button>
+
+      <Modal
+        preventClose
+        blur
+        aria-labelledby="modal-title"
+        open={visible}
+        onClose={closeHandler}
+      >
+        <Modal.Header>
+          <Text id="modal-title" b size={25}>
+            Transcation pending <Loading />
+          </Text>
+        </Modal.Header>
+
+        <Modal.Body>
+          <Text align="justify" size={17}>Please note that there will be two transactions that you need to confirm. One to create the Token and the other to list it into the marketplace.</Text>
+          <Text align="center"b size={17}>Please confirm both.</Text>
+
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }
