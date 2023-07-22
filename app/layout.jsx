@@ -7,7 +7,7 @@ import Script from "next/script";
 
 import { useState } from "react";
 import { ethers } from "ethers";
-import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
+import { Button, Modal, ModalBody, ModalFooter, Spinner } from "reactstrap";
 
 export const metadata = {
   title: "Zenith",
@@ -105,7 +105,7 @@ function RootLayout({ children }) {
               </div>
             </div>
           </Modal>
-
+          
           <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
               <Link className="navbar-brand" href="/">
@@ -183,7 +183,17 @@ function RootLayout({ children }) {
               </div>
             </div>
           </nav>
-          <main>{children}</main>
+
+          <main>
+            {
+              account ? (children) : (
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
+                  <Spinner animation="border" style={{ display: 'flex' }} />
+                  <p className="'mx-3 my-0">Awating Metamask Connection...</p>
+                </div>
+              )
+            }
+          </main>
           <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
