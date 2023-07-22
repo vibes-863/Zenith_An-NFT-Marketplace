@@ -81,7 +81,11 @@ function RootLayout({ children }) {
                   </p>
                   <p>
                     Please follow the
-                    <a href="https://tinyurl.com/zenith-user-guide">
+                    <a
+                      href="https://tinyurl.com/zenith-user-guide"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {" "}
                       setup guide
                     </a>{" "}
