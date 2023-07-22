@@ -22,6 +22,7 @@ export default function RelistNFT() {
     name: "",
     description: "",
   });
+  const [buttonState, setButtonStates] = useState([]);
 
   const [visible, setVisible] = useState(false);
   const handler = () => setVisible(true);
@@ -52,6 +53,7 @@ export default function RelistNFT() {
     // The tokens meta data is retrived from the IPFS using axios
     const meta = await axios.get(tokenUri);
     setLoadingState("loaded");
+    setButtonStates(false);
     // From the meta data, the image state variable is updated with the url to the image.
     updateFormInput((state) => ({
       ...state,
@@ -63,10 +65,12 @@ export default function RelistNFT() {
 
   // The following function re-lists the NFT onto Zenith marketplace.
   async function listNFTForSale() {
+    setButtonStates(true); // Disable the button
     await handler();
     // If the user doesn't enter a price, then the function is returned.
     if (!price) {
       await closeHandler();
+      setButtonStates(false); // Enable the button
       return;
     }
 
@@ -103,6 +107,7 @@ export default function RelistNFT() {
       router.push("/");
     } catch (error) {
       console.error("Error buying NFT:", error);
+      setButtonStates(false); // Enable the button
       await closeHandler();
     }
   }
@@ -162,9 +167,10 @@ export default function RelistNFT() {
         <button
           className="btn btn-dark"
           style={{ margin: "24px auto 40px" }}
+          disabled={buttonState} // Disable the button
           onClick={listNFTForSale}
         >
-          List NFT
+          {buttonState ? "Loading..." : "List NFT"}
         </button>
 
         <Modal
