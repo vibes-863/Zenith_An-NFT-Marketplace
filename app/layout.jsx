@@ -7,7 +7,7 @@ import Script from "next/script";
 
 import { useState } from "react";
 import { ethers } from "ethers";
-import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
+import { Modal, Spinner } from "reactstrap";
 
 export const metadata = {
   title: "Zenith",
@@ -57,51 +57,44 @@ function RootLayout({ children }) {
             isOpen={modalDefaultOpen}
             toggle={() => setModalDefaultOpen(false)}
           >
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h1 className="modal-title fs-5" id="staticBackdropLabel">
-                    Error: MetaMask Wallet Not Detected
-                  </h1>
-                  <button
-                    aria-label="Close"
-                    className="btn-close"
-                    onClick={() => setModalDefaultOpen(false)}
-                    type="button"
-                  ></button>
-                </div>
-                <div className="modal-body">
-                  <p>
-                    We apologize for the inconvenience, but in order to perform
-                    transactions and access the full range of features on
-                    Zenith, you will need to have a MetaMask Wallet installed.
-                    MetaMask is a secure and widely used cryptocurrency wallet
-                    that enables seamless interactions with decentralized
-                    applications like ours.
-                  </p>
-                  <p>
-                    Please follow the
-                    <a
-                      href="https://tinyurl.com/zenith-user-guide"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {" "}
-                      setup guide
-                    </a>{" "}
-                    and try again.
-                  </p>
-                  <p>Thank you.</p>
-                </div>
-                <div className="modal-footer">
-                  <Button
-                    color="dark"
-                    type="button"
-                    onClick={() => setModalDefaultOpen(false)}
+            <div class="modal-content rounded-4 shadow">
+              <div class="modal-header border-bottom-0">
+                <h3 class="fw-bold mb-0">
+                  Error: MetaMask Wallet Not Detected
+                </h3>
+              </div>
+              <div class="modal-body py-0">
+                <p>
+                  We apologize for the inconvenience, but in order to perform
+                  transactions and access the full range of features on Zenith,
+                  you will need to have a MetaMask Wallet installed. MetaMask is
+                  a secure and widely used cryptocurrency wallet that enables
+                  seamless interactions with decentralized applications like
+                  ours.
+                </p>
+                <p>
+                  Please follow the{" "}
+                  <a
+                    href="https://tinyurl.com/zenith-user-guide"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    Close
-                  </Button>
-                </div>
+                    setup guide
+                  </a>{" "}
+                  and try again.
+                </p>
+                <p>Thank you.</p>
+              </div>
+              <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                <button
+                  type="button"
+                  class="btn btn-lg btn-secondary"
+                  data-bs-dismiss="modal"
+                  fdprocessedid="crrxeu"
+                  onClick={() => setModalDefaultOpen(false)}
+                >
+                  Close
+                </button>
               </div>
             </div>
           </Modal>
@@ -138,18 +131,18 @@ function RootLayout({ children }) {
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link link hover-2" href="/create-nft">
-                      Sell Digital Assets
+                      Create NFT
                     </Link>
                   </li>
 
                   <li className="nav-item">
                     <Link className="nav-link link hover-2" href="/my-assets">
-                      My Digital Assets
+                      My Purchases
                     </Link>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link link hover-2" href="/dashboard">
-                      Dashboard
+                      My Listed Items
                     </Link>
                   </li>
                   <li className="nav-item">
@@ -183,7 +176,24 @@ function RootLayout({ children }) {
               </div>
             </div>
           </nav>
-          <main>{children}</main>
+
+          <main>
+            {account ? (
+              children
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  minHeight: "80vh",
+                }}
+              >
+                <Spinner animation="border" style={{ display: "flex" }} />
+                <p className="'mx-3 my-0">Awating Metamask Connection...</p>
+              </div>
+            )}
+          </main>
           <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"

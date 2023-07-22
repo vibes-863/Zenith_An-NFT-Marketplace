@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import { useRouter } from "next/navigation";
 import Web3Modal from "web3modal";
+import { Modal, Tooltip, Text, Loading } from "@nextui-org/react";
 
 // This will be used to store the NFTs data
 const auth =
@@ -41,6 +42,13 @@ export default function CreateNFT() {
 
   const [loading, setLoading] = useState(false);
 
+  const [visible, setVisible] = useState(false);
+  const handler = () => setVisible(true);
+  const closeHandler = () => {
+    setVisible(false);
+    console.log("closed");
+  };
+
   const router = useRouter();
 
   useEffect(() => {
@@ -75,6 +83,9 @@ export default function CreateNFT() {
 
   // the following function is used to create and saving it to ipfs
   async function createNFT() {
+
+    await handler();
+
     // we destructure the name, description, and price from the form input
     const { name, description, price } = formInput;
     // we then check to see if all the required values have been entered.
@@ -98,6 +109,7 @@ export default function CreateNFT() {
     } catch (error) {
       console.log("Error uploading file: ", error);
       setLoading(false);
+      await closeHandler();
     }
   }
 
@@ -140,7 +152,8 @@ export default function CreateNFT() {
       value: listingPrice,
     });
     await transaction.wait();
-
+    
+    await closeHandler();
     // We then reroute the user to the home page.
     router.push("/");
   }
@@ -168,28 +181,34 @@ export default function CreateNFT() {
       >
         Image
       </h3>
-      <div class="image-input">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="50"
-          height="50"
-          fill="grey"
-          class="bi bi-image"
-          viewBox="0 0 16 16"
-        >
-          <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-          <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
-        </svg>
-        <input type="file" onChange={onChange} />
-        {fileUrl && (
-          <img
-            className="nft-img rounded mt-4"
-            style={{ minHeight: 300, minWidth: 400 }}
-            src={fileUrl}
-            alt="Preview not available"
-          />
-        )}
-      </div>
+      <Tooltip
+        content={"Uploaded image will not be cropped"}
+        color="invert"
+        placement="right"
+      >
+        <div class="image-input">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="50"
+            height="50"
+            fill="grey"
+            class="bi bi-image"
+            viewBox="0 0 16 16"
+          >
+            <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+            <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
+          </svg>
+          <input type="file" onChange={onChange} />
+          {fileUrl && (
+            <img
+              className="nft-img rounded mt-4"
+              style={{ minHeight: 300, minWidth: 400 }}
+              src={fileUrl}
+              alt="Preview not available"
+            />
+          )}
+        </div>
+      </Tooltip>
 
       <div className="mb-3">
         <input
@@ -228,19 +247,19 @@ export default function CreateNFT() {
           }
         /> */}
         <input
-  type="number"
-  className="form-control"
-  id="exampleFormControlInput1"
-  placeholder="Asset Price in MATIC"
-  value={formInput.price}
-  onChange={(e) => {
-    const newValue = parseFloat(e.target.value); // Parse the input value to a floating-point number
-    const positiveValue = isNaN(newValue) ? '' : Math.max(0, newValue); // Make sure it's a positive number
-    updateFormInput({ ...formInput, price: positiveValue });
-  }}
-  step="0.01" // This step attribute restricts the input to 2 decimal places (adjust as needed)
-  min="0" // This sets the minimum allowed value to 0, so only positive decimals are accepted
-/>
+          type="number"
+          className="form-control"
+          id="exampleFormControlInput1"
+          placeholder="Asset Price in MATIC"
+          value={formInput.price}
+          onChange={(e) => {
+            const newValue = parseFloat(e.target.value); // Parse the input value to a floating-point number
+            const positiveValue = isNaN(newValue) ? "" : Math.max(0, newValue); // Make sure it's a positive number
+            updateFormInput({ ...formInput, price: positiveValue.toString() });
+          }}
+          step="0.01" // This step attribute restricts the input to 2 decimal places (adjust as needed)
+          min="0" // This sets the minimum allowed value to 0, so only positive decimals are accepted
+        />
       </div>
 
       <button
@@ -252,6 +271,25 @@ export default function CreateNFT() {
       >
         {loading ? "Creating..." : "Create Digital Asset"}
       </button>
+
+      <Modal
+        preventClose
+        blur
+        aria-labelledby="modal-title"
+        open={visible}
+        onClose={closeHandler}
+      >
+        <Modal.Header>
+          <Text id="modal-title" b size={25}>
+            Transcation pending <Loading />
+          </Text>
+        </Modal.Header>
+
+        <Modal.Body>
+          <Text align="justify" size={17}>Please confirm BOTH the transactions in order to create and then list the Token.</Text>
+          <Text align="center" b size={14}>Each transaction may take upto 20 seconds</Text>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }

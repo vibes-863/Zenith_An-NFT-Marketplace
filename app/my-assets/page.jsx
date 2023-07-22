@@ -16,6 +16,8 @@ export default function MyAssets() {
    *  loading status of the NFTs. */
   const [nfts, setNfts] = useState([]);
   const [loadingState, setLoadingState] = useState("not-loaded");
+  const [buttonStates, setButtonStates] = useState([]);
+
   const router = useRouter();
 
   //The 'useEffect' hook is used to load the NFTs when the component mounts.
@@ -66,11 +68,13 @@ export default function MyAssets() {
     /**The resulting array of items is stored in the nfts state variable, and the loadingState is set to 'loaded'. */
     setNfts(items);
     setLoadingState("loaded");
+    setButtonStates(Array(items.length).fill(false));
   }
 
   /**  The listNFT function will reroute the page to the re-list nft page along with the nfts data where the user
    * will be able to re-list their NFT*/
   function listNFT(nft) {
+    setButtonStates(true); // Disable the button
     router.push(`/my-assets/relist-nft?id=${nft.itemId}&tokenUri=${nft.tokenUri}`);
   }
 
@@ -119,14 +123,20 @@ export default function MyAssets() {
                     />
                   </div>
                   <div className="card-body" style={{ position: "relative" }}>
-                    <p className="card-text"><span style={{color: 'darkgray', fontSize: 17}}>MATIC</span> {nft.price}</p>
+                    <p className="card-text">
+                      <span style={{ color: "darkgray", fontSize: 17 }}>
+                        MATIC
+                      </span>{" "}
+                      {nft.price}
+                    </p>
                     <button
                       style={{ position: "absolute", right: "25px", top: 55 }}
                       type="button"
                       className="btn btn-dark"
+                      disabled={buttonStates[i]} // Disable the button if it's already loading or user is the owner
                       onClick={() => listNFT(nft)}
                     >
-                      Re-List
+                      {buttonStates[i] ? "Loading..." : "Re-List"}
                     </button>
                   </div>
                 </div>
