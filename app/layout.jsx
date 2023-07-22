@@ -7,7 +7,7 @@ import Script from "next/script";
 
 import { useState } from "react";
 import { ethers } from "ethers";
-import { Button, Modal, ModalBody, ModalFooter, Spinner } from "reactstrap";
+import { Modal, Spinner } from "reactstrap";
 
 export const metadata = {
   title: "Zenith",
