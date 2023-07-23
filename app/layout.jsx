@@ -146,22 +146,23 @@ function RootLayout({ children }) {
                       Tutorial
                     </Link>
                   </li>
-                  <li className="nav-item">
+                  <li className="nav-item" style={{margin: 'auto'}}>
                     {account ? (
                       <Link
-                        className="nav-link link hover-2"
+                        className="nav-link link"
                         href={`https://etherscan.io/address/${account}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <button type="button" className="btn btn-dark">
+                        <button type="button" className="btn btn-outline-success">
                           {account.slice(0, 5) + "..." + account.slice(38, 42)}
                         </button>
                       </Link>
                     ) : (
                       <button
                         type="button"
-                        className="btn btn-dark"
+                        className="btn btn-outline-success"
+                        
                         onClick={web3Handler}
                       >
                         Connect Wallet

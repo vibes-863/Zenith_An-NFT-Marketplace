@@ -133,17 +133,16 @@ export default function MyAssets() {
                   </div>
                   <div className="card-body" style={{ position: "relative" }}>
                     <h5 className="card-title">{nft.name}</h5>
-
                     <p className="card-text">
                       <span style={{ color: "darkgray", fontSize: 17 }}>
                         MATIC
                       </span>{" "}
                       {nft.price}
                     </p>
-
+                  </div>
                     {nft.relisted ? (
-                      <div>
-                        <Badge variant="flat" color="error" size="xl">
+                      <div className="badge">
+                        <Badge auto variant="flat" color="error" size="xl">
                           RE-LISTED
                         </Badge>
                       </div>
@@ -158,7 +157,7 @@ export default function MyAssets() {
                         {buttonStates[i] ? "Loading..." : "Re-List"}
                       </button>
                     )}
-                  </div>
+                  
                 </div>
               </div>
             ))}

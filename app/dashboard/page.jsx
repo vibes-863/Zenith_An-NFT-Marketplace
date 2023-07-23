@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Web3Modal from "web3modal";
-import { Badge } from "@nextui-org/react";
+import { css, Badge } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
 import { nftaddress, nftmarketaddress } from "../../config";
@@ -127,19 +127,19 @@ export default function Dashboard() {
                     onClick={() => router.push(`/${nft.itemId}`)}
                   ></button>
                   {nft.sold ? (
-                    <div>
+                    <div className="badge">
                       <Badge variant="flat" d color="error" size="xl">
                         SOLD
                       </Badge>
                     </div>
                   ) : nft.creator == nft.seller ? (
-                    <div>
-                      <Badge variant="flat" d color="primary" size="xl">
+                    <div className="badge">
+                      <Badge auto css={{display: '$block'}} variant="flat" d color="primary" size="xl">
                         YOU LISTED
                       </Badge>
                     </div>
                   ) : (
-                    <div>
+                    <div className="badge">
                       <Badge variant="flat" d color="success" size="xl">
                         AVAILABLE
                       </Badge>

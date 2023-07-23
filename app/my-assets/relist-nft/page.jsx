@@ -154,9 +154,7 @@ export default function RelistNFT() {
           placeholder="Asset Price in MATIC"
           value={formInput.price}
           onChange={(e) => {
-            const newValue = parseFloat(e.target.value); // Parse the input value to a floating-point number
-            const positiveValue = isNaN(newValue) ? "" : Math.max(0, newValue); // Make sure it's a positive number
-            updateFormInput({ ...formInput, price: positiveValue.toString() });
+            updateFormInput({ ...formInput, price: e.target.value });
           }}
           step="0.01" // This step attribute restricts the input to 2 decimal places (adjust as needed)
           min="0" // This sets the minimum allowed value to 0, so only positive decimals are accepted
