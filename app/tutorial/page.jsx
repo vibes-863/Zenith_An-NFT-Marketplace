@@ -377,7 +377,7 @@ export default function tutorial() {
 
         <div className="holder slide-up">
           <h2 style={{ display: "inline", fontSize: "60px" }}>
-            Creating a Metamask Wallet
+            Basic Safety and Security Tips for MetaMask
           </h2>
           <Link
             href="https://metamask.io/"
