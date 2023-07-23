@@ -160,7 +160,7 @@ function RootLayout({ children }) {
                   <li className="nav-item" style={{margin: 'auto'}}>
                     {account ? (
                       
-                        <button type="button" className="btn btn-outline-success" disabled="true">
+                        <button type="button" className="btn btn-success" style={{opacity: '100'}} disabled="true">
                           {account.slice(0, 5) + "..." + account.slice(38, 42)}
                         </button>
                     ) : (
@@ -192,7 +192,7 @@ function RootLayout({ children }) {
                 }}
               >
                 <Spinner animation="border" style={{ display: "flex" }} />
-                <p className="'mx-3 my-0">Please Connect Wallet......</p>
+                <p style={{paddingLeft: 20}} className="'mx-3 my-0">Please Connect Wallet......</p>
               </div>
             )}
           </main>
