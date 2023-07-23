@@ -7,6 +7,7 @@ import axios from "axios";
 import Web3Modal from "web3modal";
 import { useRouter } from "next/navigation";
 import { Modal, Text, Loading } from "@nextui-org/react";
+import { Badge } from "@nextui-org/react";
 
 import { nftaddress, nftmarketaddress } from "../../config";
 
@@ -25,6 +26,7 @@ export default function NFTDetails({ params, searchParams }) {
   const [nft, setNft] = useState([]);
   const [loadingState, setLoadingState] = useState("not-loaded");
   const [buttonState, setButtonStates] = useState([]);
+  const [account, setAccount] = useState(null);
 
   const [visible, setVisible] = useState(false);
   const handler = () => setVisible(true);
@@ -32,6 +34,13 @@ export default function NFTDetails({ params, searchParams }) {
     setVisible(false);
     console.log("closed");
   };
+
+  const getAccount = async () => {
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    setAccount(accounts[0]);
+}
 
   const router = useRouter();
 
@@ -43,6 +52,7 @@ export default function NFTDetails({ params, searchParams }) {
   /**The loadNFTs function is an asynchronous function responsible for fetching and
    *  processing NFT data from the marketplace.*/
   async function loadNFT() {
+    await getAccount()
     // It creates an instance of JsonRpcProvider from ethers library using the rpcEndpoint.
     const provider = new ethers.providers.JsonRpcProvider(rpcEndpoint);
 
@@ -66,11 +76,14 @@ export default function NFTDetails({ params, searchParams }) {
       tokenId: data.tokenId.toString(),
       price,
       itemId: data.itemId.toNumber(),
+      creator: data.creator,
       seller: data.seller,
       owner: data.owner,
       image: meta.data.image,
       name: meta.data.name,
       description: meta.data.description,
+      sold: data.sold,
+      relisted: data.relisted
     };
 
     // The resulting item is stored in the nft state variable, and the loadingState is set to 'loaded'. The buttonState is set to false.
@@ -152,15 +165,44 @@ export default function NFTDetails({ params, searchParams }) {
             <p style={{ width: 525 }}>{nft.description}</p>
           </div>
         </div>
-        <button
-          style={{ display: "block" }}
-          type="button"
-          className="btn btn-dark"
-          disabled={buttonState} // Disable the button if it's already loading or user is the owner
-          onClick={() => buyNft(nft)}
-        >
-          {buttonState ? "Loading..." : "Buy"}
-        </button>
+
+        {nft.owner.toLowerCase() == account.toLowerCase() ? (
+          <div>
+            <Badge variant="flat" d color="success" size="xl">
+              OWNED
+            </Badge>
+          </div>
+        ) : nft.relisted &&
+          nft.seller.toLowerCase() == account.toLowerCase() ? (
+          <div>
+            <Badge variant="flat" color="error" size="xl">
+              RE-LISTED
+            </Badge>
+          </div>
+        ) : nft.sold ? (
+          <div>
+            <Badge variant="flat" color="error" size="xl">
+              SOLD
+            </Badge>
+          </div>
+        ) : nft.creator.toLowerCase() == nft.seller.toLowerCase() &&
+          nft.creator.toLowerCase() == account.toLowerCase() ? (
+          <div>
+            <Badge variant="flat" d color="primary" size="xl">
+              YOU LISTED
+            </Badge>
+          </div>
+        ) : (
+          <button
+            style={{ display: "block" }}
+            type="button"
+            className="btn btn-dark"
+            disabled={buttonState} // Disable the button if it's already loading or user is the owner
+            onClick={() => buyNft(nft)}
+          >
+            {buttonState ? "Loading..." : "Buy"}
+          </button>
+        )}
 
         <Modal
           preventClose

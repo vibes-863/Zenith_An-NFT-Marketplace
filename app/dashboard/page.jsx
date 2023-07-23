@@ -3,6 +3,8 @@ import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Web3Modal from "web3modal";
+import { Badge } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 
 import { nftaddress, nftmarketaddress } from "../../config";
 
@@ -12,13 +14,13 @@ import Market from "../../artifacts/contracts/NFTmarket.sol/NFTmarket.json";
 export default function Dashboard() {
   /** We have two arrays which can be set using the useState function. The
    * 'nfts' array will store the nfts that we have created (sold and unsold)
-   * 'sold' array will store the nfts that we have created which have been sold.
    */
   const [nfts, setNfts] = useState([]);
-  const [sold, setSold] = useState([]);
 
   //'loadingState' tracks the loading status of the NFTs.
   const [loadingState, setLoadingState] = useState("not-loaded");
+
+  const router = useRouter();
 
   //The 'useEffect' hook is used to load the NFTs when the component mounts.
   useEffect(() => {
@@ -57,21 +59,18 @@ export default function Dashboard() {
           itemId: i.itemId.toNumber(),
           price,
           tokenId: i.tokenId.toNumber(),
+          creator: i.creator,
           seller: i.seller,
           owner: i.owner,
           sold: i.sold,
           image: meta.data.image,
+          name: meta.data.name,
         };
         return item;
       })
     );
 
-    // We filter the items above by checking if it is sold and then store those
-    // items into an new array 'soldItems'
-    const soldItems = items.filter((i) => i.sold);
-
-    /**The resulting array of items is stored in the 'sold' and 'nfts' state variables, and the loadingState is set to 'loaded'. */
-    setSold(soldItems);
+    /**The resulting array of items is stored in the'nfts' state variable, and the loadingState is set to 'loaded'. */
     setNfts(items);
     setLoadingState("loaded");
   }
@@ -90,6 +89,16 @@ export default function Dashboard() {
     <div style={{ padding: 65 }}>
       <section id="allItems">
         <h1 className="create-title">Items Created</h1>
+        {!nfts.length ? (
+          <div>
+            <h3 className="px-20 py-10 text-3xl">
+              You have not created any NFTs. Go to 'Create NFT' to mint your
+              first NFT
+            </h3>
+          </div>
+        ) : (
+          <div></div>
+        )}
         <div className="container" style={{ margin: 50 }}>
           <div className="row row-cols-auto">
             {nfts.map((nft, i) => (
@@ -104,49 +113,43 @@ export default function Dashboard() {
                   </div>
                   <div className="card-body" style={{ position: "relative" }}>
                     <h5 className="card-title">{nft.name}</h5>
-                    <p className="card-text">{nft.description}</p>
-                    <p className="card-text"><span style={{color: 'darkgray', fontSize: 17}}>MATIC</span> {nft.price}</p>
+                    <p className="card-text">
+                      <span style={{ color: "darkgray", fontSize: 17 }}>
+                        MATIC
+                      </span>{" "}
+                      {nft.price}
+                    </p>
                   </div>
+                  <button
+                    type="button"
+                    className="btn btn-dark create-btn"
+                    // style={{ position: "absolute", right: "25px", top: 55 }}
+                    onClick={() => router.push(`/${nft.itemId}`)}
+                  ></button>
+                  {nft.sold ? (
+                    <div>
+                      <Badge variant="flat" d color="error" size="xl">
+                        SOLD
+                      </Badge>
+                    </div>
+                  ) : nft.creator == nft.seller ? (
+                    <div>
+                      <Badge variant="flat" d color="primary" size="xl">
+                        YOU LISTED
+                      </Badge>
+                    </div>
+                  ) : (
+                    <div>
+                      <Badge variant="flat" d color="success" size="xl">
+                        AVAILABLE
+                      </Badge>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </section>
-
-      <section id="soldItems">
-        {Boolean(sold.length) && (
-          <div>
-            <h1 className="create-title" style={{ margin: "40px 0px 30px" }}>
-              Items Sold
-            </h1>
-            <div className="container" style={{ margin: 50 }}>
-              <div className="row row-cols-auto">
-                {sold.map((nft, i) => (
-                  <div key={i} className="col">
-                    <div className="card" style={{ width: "18rem" }}>
-                      <div className="img-holder">
-                        <img
-                          src={nft.image}
-                          className="card-img-top"
-                          alt="NFT image"
-                        />
-                      </div>
-                      <div
-                        className="card-body"
-                        style={{ position: "relative" }}
-                      >
-                        <h5 className="card-title">{nft.name}</h5>
-                        <p className="card-text">{nft.description}</p>
-                        <p className="card-text"><span style={{color: 'darkgray', fontSize: 17}}>MATIC</span> {nft.price}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
       </section>
     </div>
   );

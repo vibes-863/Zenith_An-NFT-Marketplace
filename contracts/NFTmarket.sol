@@ -35,10 +35,12 @@ contract NFTmarket is ReentrancyGuard {
         uint itemId;
         address nftContract;
         uint256 tokenId;
+        address payable creator;
         address payable seller;
         address payable owner;
         uint256 price;
         bool sold;
+        bool relisted;
     }
 
     /*The idToMarketItem mapping is used to map each itemId to its corresponding MarketItem.*/
@@ -49,10 +51,12 @@ contract NFTmarket is ReentrancyGuard {
         uint indexed itemId,
         address indexed nftContract,
         uint256 indexed tokenId,
+        address creator,
         address seller,
         address owner,
         uint256 price,
-        bool sold
+        bool sold,
+        bool relisted
     );
 
     event ProductListed(uint256 indexed itemId);
@@ -91,8 +95,10 @@ contract NFTmarket is ReentrancyGuard {
             nftContract,
             tokenId,
             payable(msg.sender),
+            payable(msg.sender),
             payable(address(0)),
             price,
+            false,
             false
         );
 
@@ -105,8 +111,10 @@ contract NFTmarket is ReentrancyGuard {
             nftContract,
             tokenId,
             msg.sender,
+            msg.sender,
             address(0),
             price,
+            false,
             false
         );
     }
@@ -137,6 +145,7 @@ contract NFTmarket is ReentrancyGuard {
         // Updating the owner and sold status of the item
         idToMarketItem[itemId].owner = payable(msg.sender);
         idToMarketItem[itemId].sold = true;
+        idToMarketItem[itemId].relisted = false;
 
         _itemsSold.increment(); // Incrementing the items sold counter
 
@@ -175,13 +184,16 @@ contract NFTmarket is ReentrancyGuard {
             if (idToMarketItem[i + 1].owner == msg.sender) {
                 itemCount += 1;
             }
+            else if (idToMarketItem[i + 1].creator != msg.sender && idToMarketItem[i + 1].seller == msg.sender && idToMarketItem[i + 1].sold == false) {
+                itemCount += 1;
+            }
         }
 
         MarketItem[] memory items = new MarketItem[](itemCount);
 
         // Adding the items owned by the caller to the array
         for (uint i = 0; i < totalItemCount; i++) {
-            if (idToMarketItem[i + 1].owner == msg.sender) {
+            if ((idToMarketItem[i + 1].owner == msg.sender) || (idToMarketItem[i + 1].creator != msg.sender && idToMarketItem[i + 1].seller == msg.sender && idToMarketItem[i + 1].sold == false)) {
                 uint currentId = idToMarketItem[i + 1].itemId;
                 MarketItem storage currentItem = idToMarketItem[currentId];
                 items[currentIndex] = currentItem;
@@ -200,7 +212,7 @@ contract NFTmarket is ReentrancyGuard {
 
         // Counting the number of items created by the caller
         for (uint i = 0; i < totalItemCount; i++) {
-            if (idToMarketItem[i + 1].seller == msg.sender) {
+            if (idToMarketItem[i + 1].creator == msg.sender) {
                 itemCount += 1;
             }
         }
@@ -209,7 +221,7 @@ contract NFTmarket is ReentrancyGuard {
 
         // Adding the items created by the caller to the array
         for (uint i = 0; i < totalItemCount; i++) {
-            if (idToMarketItem[i + 1].seller == msg.sender) {
+            if (idToMarketItem[i + 1].creator == msg.sender) {
                 uint currentId = idToMarketItem[i + 1].itemId;
                 MarketItem storage currentItem = idToMarketItem[currentId];
                 items[currentIndex] = currentItem;
@@ -243,6 +255,7 @@ contract NFTmarket is ReentrancyGuard {
         idToMarketItem[itemId].seller = payable(msg.sender);
         idToMarketItem[itemId].price = newPrice;
         idToMarketItem[itemId].sold = false;
+        idToMarketItem[itemId].relisted = true;
         // decreasing the count of sold items
         _itemsSold.decrement();
 

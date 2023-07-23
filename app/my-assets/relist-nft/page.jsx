@@ -104,7 +104,7 @@ export default function RelistNFT() {
       await closeHandler();
 
       // We then reroute the user to the home page.
-      router.push("/");
+      router.push("/my-assets");
     } catch (error) {
       console.error("Error buying NFT:", error);
       setButtonStates(false); // Enable the button
