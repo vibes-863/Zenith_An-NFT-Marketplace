@@ -76,6 +76,7 @@ export default function NFTDetails({ params, searchParams }) {
       tokenId: data.tokenId.toString(),
       price,
       itemId: data.itemId.toNumber(),
+      creator: data.creator,
       seller: data.seller,
       owner: data.owner,
       image: meta.data.image,
@@ -182,6 +183,13 @@ export default function NFTDetails({ params, searchParams }) {
           <div>
             <Badge variant="flat" color="error" size="xl">
               SOLD
+            </Badge>
+          </div>
+        ) : nft.creator.toLowerCase() == nft.seller.toLowerCase() &&
+          nft.creator.toLowerCase() == account.toLowerCase() ? (
+          <div>
+            <Badge variant="flat" d color="primary" size="xl">
+              YOU LISTED
             </Badge>
           </div>
         ) : (

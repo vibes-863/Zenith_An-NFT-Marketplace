@@ -132,8 +132,18 @@ export default function Dashboard() {
                         SOLD
                       </Badge>
                     </div>
+                  ) : nft.creator == nft.seller ? (
+                    <div>
+                      <Badge variant="flat" d color="primary" size="xl">
+                        YOU LISTED
+                      </Badge>
+                    </div>
                   ) : (
-                    <div></div>
+                    <div>
+                      <Badge variant="flat" d color="success" size="xl">
+                        AVAILABLE
+                      </Badge>
+                    </div>
                   )}
                 </div>
               </div>
