@@ -159,16 +159,10 @@ function RootLayout({ children }) {
                   </li>
                   <li className="nav-item" style={{margin: 'auto'}}>
                     {account ? (
-                      <Link
-                        className="nav-link link"
-                        href={`https://etherscan.io/address/${account}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <button type="button" className="btn btn-outline-success">
+                      
+                        <button type="button" className="btn btn-outline-success" disabled="true">
                           {account.slice(0, 5) + "..." + account.slice(38, 42)}
                         </button>
-                      </Link>
                     ) : (
                       <button
                         type="button"
@@ -198,7 +192,7 @@ function RootLayout({ children }) {
                 }}
               >
                 <Spinner animation="border" style={{ display: "flex" }} />
-                <p className="'mx-3 my-0">Awating Metamask Connection...</p>
+                <p className="'mx-3 my-0">Please Connect Wallet......</p>
               </div>
             )}
           </main>
