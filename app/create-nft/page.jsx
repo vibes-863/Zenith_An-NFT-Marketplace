@@ -155,7 +155,7 @@ export default function CreateNFT() {
     
     await closeHandler();
     // We then reroute the user to the home page.
-    router.push("/");
+    router.push("/dashboard");
   }
 
   function resetForm() {
