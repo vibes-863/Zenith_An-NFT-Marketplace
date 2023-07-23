@@ -5,7 +5,7 @@ import "./globals.css";
 import Link from "next/link";
 import Script from "next/script";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { Modal, Spinner } from "reactstrap";
 
@@ -13,6 +13,17 @@ import { Modal, Spinner } from "reactstrap";
 function RootLayout({ children }) {
   const [account, setAccount] = useState(null);
   const [modalDefaultOpen, setModalDefaultOpen] = useState(false);
+
+  useEffect(() => {
+    if (window.ethereum) {
+      window.ethereum.on('chainChanged', () => {
+        window.location.reload();
+      })
+      window.ethereum.on('accountsChanged', () => {
+        window.location.reload();
+      })
+    }
+  })
   // MetaMask Login/Connect
   const web3Handler = async () => {
     // If function checks if metamask wallet present, if not a modal pops up
