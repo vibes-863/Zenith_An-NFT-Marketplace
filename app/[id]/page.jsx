@@ -167,27 +167,27 @@ export default function NFTDetails({ params, searchParams }) {
         </div>
 
         {nft.owner.toLowerCase() == account.toLowerCase() ? (
-          <div>
+          <div style={{ width: 350 }}>
             <Badge variant="flat" d color="success" size="xl">
               OWNED
             </Badge>
           </div>
         ) : nft.relisted &&
           nft.seller.toLowerCase() == account.toLowerCase() ? (
-          <div>
+          <div style={{ width: 350 }}>
             <Badge variant="flat" color="error" size="xl">
               RE-LISTED
             </Badge>
           </div>
         ) : nft.sold ? (
-          <div>
+          <div style={{ width: 350 }}>
             <Badge variant="flat" color="error" size="xl">
               SOLD
             </Badge>
           </div>
         ) : nft.creator.toLowerCase() == nft.seller.toLowerCase() &&
           nft.creator.toLowerCase() == account.toLowerCase() ? (
-          <div>
+          <div style={{ width: 350 }}>
             <Badge variant="flat" d color="primary" size="xl">
               YOU LISTED
             </Badge>
