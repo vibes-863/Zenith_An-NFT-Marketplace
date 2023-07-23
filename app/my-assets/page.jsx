@@ -148,7 +148,7 @@ export default function MyAssets() {
                       </div>
                     ) : (
                       <button
-                        style={{ position: "absolute", right: "25px", top: 55 }}
+                        style={{ position: "absolute", right: "25px", top: 320 }}
                         type="button"
                         className="btn btn-dark"
                         disabled={buttonStates[i]} // Disable the button if it's already loading or user is the owner

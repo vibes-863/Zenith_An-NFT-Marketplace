@@ -180,7 +180,7 @@ export default function RelistNFT() {
         >
           <Modal.Header>
             <Text id="modal-title" b size={25}>
-              Transcation pending <Loading />
+              Transaction pending <Loading />
             </Text>
           </Modal.Header>
 
