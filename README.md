@@ -2,7 +2,7 @@
 
 Orbital Project 2023 (Team TokenTitans)
 
-Complete documentation can be found at : https://tinyurl.com/zenith-marketplace
+Complete documentation can be found at : https://tinyurl.com/zenith-documentation
 
 Website link: https://zenith-marketplace.vercel.app/
 
