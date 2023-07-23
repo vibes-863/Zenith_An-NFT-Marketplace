@@ -92,8 +92,8 @@ export default function Dashboard() {
         {!nfts.length ? (
           <div>
             <h3 className="px-20 py-10 text-3xl">
-              You have not created any NFTs. Go to 'Create NFT' to mint your
-              first NFT
+              You have not created any NFTs. Go to &apos;Create NFT&apos; to
+              mint your first NFT
             </h3>
           </div>
         ) : (
