@@ -76,7 +76,9 @@ export default function MyAssets() {
 
   /**  The listNFT function will reroute the page to the re-list nft page along with the nfts data where the user
    * will be able to re-list their NFT*/
-  function listNFT(nft) {
+  function listNFT(nft, e) {
+    if (e && e.stopPropagation) e.stopPropagation(); 
+
     setButtonStates(true); // Disable the button
     router.push(`/my-assets/relist-nft?id=${nft.itemId}&tokenUri=${nft.tokenUri}`);
   }
@@ -117,7 +119,11 @@ export default function MyAssets() {
           <div className="row row-cols-auto">
             {nfts.map((nft, i) => (
               <div key={i} className="col">
-                <div className="card" style={{ width: "18rem" }}>
+                <div
+                  className="card"
+                  onClick={() => router.push(`/${nft.itemId}`)}
+                  style={{ width: "18rem" }}
+                >
                   <div className="img-holder">
                     <img
                       src={nft.image}
@@ -134,31 +140,24 @@ export default function MyAssets() {
                       </span>{" "}
                       {nft.price}
                     </p>
-                    
-                    {
-                      nft.relisted ? (
-                        <div>
-                          <Badge
-                            variant="flat"
-                            color="error"
-                            size="xl"
-                          >
-                            RE-LISTED
-                          </Badge>
-                        </div>                        
-                      ) : (
-                        <button
-                          style={{ position: "absolute", right: "25px", top: 55 }}
-                          type="button"
-                          className="btn btn-dark"
-                          disabled={buttonStates[i]} // Disable the button if it's already loading or user is the owner
-                          onClick={() => listNFT(nft)}
-                        >
-                          {buttonStates[i] ? "Loading..." : "Re-List"}
-                        </button> 
-                      )
-                    }
 
+                    {nft.relisted ? (
+                      <div>
+                        <Badge variant="flat" color="error" size="xl">
+                          RE-LISTED
+                        </Badge>
+                      </div>
+                    ) : (
+                      <button
+                        style={{ position: "absolute", right: "25px", top: 55 }}
+                        type="button"
+                        className="btn btn-dark"
+                        disabled={buttonStates[i]} // Disable the button if it's already loading or user is the owner
+                        onClick={(e) => listNFT(nft, e)}
+                      >
+                        {buttonStates[i] ? "Loading..." : "Re-List"}
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

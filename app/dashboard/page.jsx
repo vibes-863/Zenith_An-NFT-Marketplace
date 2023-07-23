@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Web3Modal from "web3modal";
 import { Badge } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 
 import { nftaddress, nftmarketaddress } from "../../config";
 
@@ -18,6 +19,8 @@ export default function Dashboard() {
 
   //'loadingState' tracks the loading status of the NFTs.
   const [loadingState, setLoadingState] = useState("not-loaded");
+
+  const router = useRouter();
 
   //The 'useEffect' hook is used to load the NFTs when the component mounts.
   useEffect(() => {
@@ -117,22 +120,21 @@ export default function Dashboard() {
                       {nft.price}
                     </p>
                   </div>
-                  {
-                    (nft.sold || (nft.creator != nft.seller)) ? (
-                      <div>
-                        <Badge
-                          variant="flat"d
-                          color="error"
-                          size="xl"
-                        >
-                          SOLD
-                        </Badge>
-                      </div>
-                    ) : (
-                        <div></div>
-                    )
-                  }
-                  
+                  <button
+                    type="button"
+                    className="btn btn-dark create-btn"
+                    // style={{ position: "absolute", right: "25px", top: 55 }}
+                    onClick={() => router.push(`/${nft.itemId}`)}
+                  ></button>
+                  {nft.sold ? (
+                    <div>
+                      <Badge variant="flat" d color="error" size="xl">
+                        SOLD
+                      </Badge>
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
               </div>
             ))}
