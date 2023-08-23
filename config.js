@@ -1,6 +1,6 @@
 // The below is for Mumbai Testnet
-export const nftaddress = "0x561C504C137DF0a3754ba0d908e6f11CEC504B77";
-export const nftmarketaddress = "0xA4928b63102394484Ba9510493993C8E426FF1D9";
+export const nftaddress = "0x0DBcAb1f381854189F43Ade041c15763eE081897";
+export const nftmarketaddress = "0x9cE8231aF7C3a166fF7e54381EBf5AA20660BB04";
 
 // The below is for local network
 //export const nftaddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
